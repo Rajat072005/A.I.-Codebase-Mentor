@@ -8,6 +8,7 @@ def create_chunks(files , chunk_size = 1000):
         while start < len(content):
             chunk_content = content[start:start + chunk_size]
             chunk_info = {
+                "id" : f"{file['path']}_{chunk_id}",
                 "path" : file["path"],
                 "chunk_id" : chunk_id,
                 "content" : chunk_content 
