@@ -5,7 +5,7 @@ model = SentenceTransformer(
     "sentence-transformers/all-MiniLM-L6-v2"
 )
 
-def retrieve(question , embeddings , top_k = 3):
+def retrieve(question , embeddings ,chunk_map, top_k = 3 ):
     question_embedding = model.encode(question)
     results = []
     for item in embeddings : 
@@ -13,11 +13,14 @@ def retrieve(question , embeddings , top_k = 3):
             [question_embedding],
             [item['embedding']]
         )[0][0]
+        chunk = chunk_map[item['id']]
 
         results.append(
             {
                 "id" : item["id"],
-                "score" : score
+                "score" : float(score),
+                "path" : f"""{chunk['path']}""",
+                "content" : f"""{chunk['content']}"""
             }
         )
 

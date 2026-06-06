@@ -3,6 +3,7 @@ import file_reader
 import chunker
 import embedding_generator
 import retriever
+import llm_explainer
 
 repo_url = "https://github.com/Rajat072005/SyncSphere-Website"
 folder_name = "sample_repo"
@@ -15,10 +16,16 @@ for chunk in chunks :
     chunk_map[chunk['id']] = chunk
 print(f"Total files read: {len(files)}")
 print(f"Total chunks made: {len(chunks)}")
-small_chunk_list = chunks[:50]
+#small_chunk_list = chunks[:50]
 
 
 embeddings = embedding_generator.generate_embeddings(chunks)
+question = input(
+    "Ask a question about the repository: "
+)
+results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
+answer = llm_explainer.explain_code(question,results)
+print(answer)
 
 
 
