@@ -42,7 +42,7 @@ Code:
     
 #     return prompt
 
-        prompt = f"""
+    prompt = f"""
 You are an expert AI software engineer assistant helping a developer understand their repository.
 
 CRITICAL INSTRUCTIONS FOR HANDLING USER INPUT:
