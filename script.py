@@ -6,7 +6,7 @@ import retriever
 import llm_explainer
 import question_classifier
 import repository_context
-
+import storage
 repo_url = "https://github.com/Rajat072005/SyncSphere-Website"
 folder_name = "sample_repo"
 
@@ -19,20 +19,34 @@ for chunk in chunks :
 # print(f"Total files read: {len(files)}")
 # print(f"Total chunks made: {len(chunks)}")
 
-embeddings = embedding_generator.generate_embeddings(chunks)
-question = input(
-    "Ask a question about the repository: "
-)
+test = [
+    {
+        "name" : "Rajat",
+        "branch" : "CSE"
+    },
+    {
+        "name" : "Rahul",
+        "branch" : "cse - 2"
+    }
+]
+storage.save_json(test , "test.json")
+loaded = storage.load_json("test.json")
+print(loaded)
+#embeddings = embedding_generator.generate_embeddings(chunks)
+
+# question = input(
+#     "Ask a question about the repository: "
+# )
 
 
-question_type = question_classifier.question_classifier(question)
-if question_type =="repository":
-    results = repository_context.get_repository_context(files)
-else:
-    results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-answer = llm_explainer.explain_code(question,results)
+# question_type = question_classifier.question_classifier(question)
+# if question_type =="repository":
+#     results = repository_context.get_repository_context(files)
+# else:
+#     results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
+# answer = llm_explainer.explain_code(question,results)
 
-print(answer)
+# print(answer)
 
 
 
