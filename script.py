@@ -19,18 +19,27 @@ Enter Your Choice :
 """
 )
 
+
 if(choice == "1"):
-    repo_url = "https://github.com/Rajat072005/SyncSphere-Website"
-    folder_name = "sample_repo"
-    repo_downloader.download_repo(repo_url , folder_name)
-    files = file_reader.read_repository(folder_name)
+    # repo_url = "https://github.com/Rajat072005/SyncSphere-Website"
+    repo_url = input("Provide Github Repository Url : ")
+    repo_name = utils.extract_repo_name(repo_url)
+    repo_folder = utils.create_repo_folder(repo_name)
+    repo_code_folder = f"{repo_folder}/repository"
+    repo_info = {
+        "repo_name" : repo_name,
+        "repo_url" : repo_url
+    }
+    storage.save_json(repo_info , f"{repo_folder}/repo_info.json")
+    # folder_name = "sample_repo"
+    repo_downloader.download_repo(repo_url , repo_code_folder)
+    files = file_reader.read_repository(repo_code_folder)
     repository_context = repo_context.build_repo_context(files)
     chunks = chunker.create_chunks(files)
-    #
     embeddings = embedding_generator.generate_embeddings(chunks)
-    storage.save_json(repository_context , "repo_context.json")
-    storage.save_json(chunks , "chunks.json")
-    storage.save_json(embeddings , "embeddings.json")
+    storage.save_json(repository_context , f"{repo_folder}/repo_context.json")
+    storage.save_json(chunks , f"{repo_folder}/chunks.json")
+    storage.save_json(embeddings , f"{repo_folder}/embeddings.json")
 
 elif(choice == "2"):
     chunks = storage.load_json("chunks.json")
@@ -50,13 +59,6 @@ elif(choice == "2"):
 
     print(answer)
 
-#
-#
-#
-#
-
-# 
-# 
 
 
 

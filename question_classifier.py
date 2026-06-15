@@ -7,6 +7,7 @@ def question_classifier(question):
     "architecture",
     "technologies",
     "technology",
+    "pages",
     "tech stack"
 ]
     lowercased_question = question.lower()

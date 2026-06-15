@@ -5,6 +5,7 @@ def build_repo_context(files):
         
         if(
             "readme" in path
+            or "/pages/" in path
             or "package.json" in path
             or "app.jsx" in path
             or "main.jsx" in path
