@@ -28,4 +28,19 @@ def retrieve(question , embeddings ,chunk_map, top_k = 3 ):
         key= lambda x: x['score'],
         reverse=True
     )
-    return results[:top_k]
+
+    seen_files = set()
+    unique_results = []
+
+    for result in results : 
+        path = result['path']
+        if path in seen_files:
+            continue
+
+        unique_results.append(result)
+        seen_files.add(path)
+        if len(unique_results) == top_k:
+            break
+    return unique_results
+
+

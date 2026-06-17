@@ -1,4 +1,15 @@
 def question_classifier(question):
+    casual_keywords = [
+    "hello",
+    "hi",
+    "hey",
+    "how are you",
+    "who are you",
+    "thank you",
+    "thanks",
+    "good morning",
+    "good evening"
+]
     overview_keywords = [
     "summary",
     "summarize",
@@ -11,6 +22,11 @@ def question_classifier(question):
     "tech stack"
 ]
     lowercased_question = question.lower()
+
+    for keyword in casual_keywords : 
+        if keyword in lowercased_question:
+            return "casual"
+
     for keyword in overview_keywords:
         if keyword in lowercased_question:
             return "repository"

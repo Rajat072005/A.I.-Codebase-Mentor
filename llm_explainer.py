@@ -76,6 +76,17 @@ Provide a clear, direct response based on the rules above.
 """
     return prompt
 
+def build_casual_prompt(question):
+    prompt = f"""You are an AI codebase assistant.
+
+Respond naturally to the user's casual message.
+
+User's Question:
+{question}
+"""
+    return prompt
+
+
 def explain_code(question , chunks):
     prompt = build_feature_prompt(question , chunks)
 
@@ -90,3 +101,9 @@ def explain_repo(question , repo_context):
 
     return response.text
         
+def explain_casual(question):
+    prompt = build_casual_prompt(question)
+
+    response = model.generate_content(prompt)
+
+    return response.text
