@@ -1,4 +1,5 @@
 import os
+import git
 def build_chunkmap(chunks):
     chunk_map = {}
     for chunk in chunks:
@@ -36,3 +37,7 @@ def display_repositories(repositories):
 
     for index , repo in enumerate(repositories , start=1):
         print(f"{index}. {repo}")
+
+def get_local_commit_hash(repo_folder):
+    repo = git.Repo(repo_folder)
+    return repo.head.commit.hexsha
