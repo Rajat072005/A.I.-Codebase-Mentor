@@ -1,5 +1,6 @@
 import os
 import git
+import stat
 def build_chunkmap(chunks):
     chunk_map = {}
     for chunk in chunks:
@@ -54,3 +55,7 @@ def get_remote_commit_hash(repo_url):
     except Exception as error:
         print("error fetching remote hash" , error)
     return None
+
+def remove_readonly(func, path, _):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)

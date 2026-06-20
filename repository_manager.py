@@ -6,7 +6,10 @@ import os
 import repo_context
 import utils
 import storage
-def reindex_repository(repo_url):
+import shutil
+def reindex_repository(repo_url , repo_code_folder):
+    if os.path.exists(repo_code_folder):
+        shutil.rmtree(repo_code_folder , onexc= utils.remove_readonly)
     repo_name = utils.extract_repo_name(repo_url)
     repo_folder = utils.create_repo_folder(repo_name)
     repo_code_folder = f"{repo_folder}/repository"

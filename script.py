@@ -10,6 +10,7 @@ import storage
 import utils
 import os
 import repository_manager
+import shutil
 
 choice = input(
     f"""
@@ -42,13 +43,16 @@ Select Repository : """
         print(f"\nSelected Repository : {repos[user_choice-1]}")
         selected_repo = repos[user_choice-1]
         repo_folder = f"data/{selected_repo}"
+        repo_code_folder = f"{repo_folder}/repository"
         repo_info = storage.load_json(f"{repo_folder}/repo_info.json")
         last_commit_hash = repo_info['last_commit_hash']
         remote_commit_hash = utils.get_remote_commit_hash(repo_info['repo_url'])
         if remote_commit_hash is None:
             print("Could not check remote repository.")
         elif last_commit_hash != remote_commit_hash:
-            repository_manager.reindex_repository(repo_info['repo_url'])
+            print("executing...")
+            repository_manager.reindex_repository(repo_info['repo_url'] , repo_code_folder)
+
         
         # print(f"last_commit_hash : {last_commit_hash}")
         # print(f"remote_commit_hash : {remote_commit_hash}")
@@ -72,7 +76,7 @@ Select Repository : """
         # for index, result in enumerate (results , start = 1):
         #     print(f"Retrieved File {index} : {result['path']}")
         
-        answer = llm_explainer.explain_code(question,results)
+        #answer = llm_explainer.explain_code(question,results)
 
 
         print(answer)
