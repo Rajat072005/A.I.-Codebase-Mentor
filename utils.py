@@ -41,3 +41,16 @@ def display_repositories(repositories):
 def get_local_commit_hash(repo_folder):
     repo = git.Repo(repo_folder)
     return repo.head.commit.hexsha
+
+def get_remote_commit_hash(repo_url):
+    try:
+        g = git.Git()
+
+        output = g.ls_remote(repo_url , 'HEAD')
+
+        if output : 
+            return output.split()[0]
+        return None
+    except Exception as error:
+        print("error fetching remote hash" , error)
+    return None

@@ -9,6 +9,7 @@ import repo_context
 import storage
 import utils
 import os
+import repository_manager
 
 choice = input(
     f"""
@@ -21,29 +22,10 @@ Enter Your Choice : """
 
 if(choice == "1"):
     # repo_url = "https://github.com/Rajat072005/SyncSphere-Website"
-    repo_url = input("Provide Github Repository Url : ")
-    repo_name = utils.extract_repo_name(repo_url)
-    
-    
-    repo_folder = utils.create_repo_folder(repo_name)
-    repo_code_folder = f"{repo_folder}/repository"
-    # folder_name = "sample_repo"
-    repo_downloader.download_repo(repo_url , repo_code_folder)
-    commit_hash = utils.get_local_commit_hash(repo_code_folder)
-    repo_info = {
-        "repo_name" : repo_name,
-        "repo_url" : repo_url,
-        "last_commit_hash": commit_hash
-    }
-    
-    files = file_reader.read_repository(repo_code_folder)
-    repository_context = repo_context.build_repo_context(files)
-    chunks = chunker.create_chunks(files)
-    embeddings = embedding_generator.generate_embeddings(chunks)
-    storage.save_json(repo_info , f"{repo_folder}/repo_info.json")
-    storage.save_json(repository_context , f"{repo_folder}/repo_context.json")
-    storage.save_json(chunks , f"{repo_folder}/chunks.json")
-    storage.save_json(embeddings , f"{repo_folder}/embeddings.json")
+    repo_url_input = input(
+        "Provide the repository url : "
+    )
+    repository_manager.reindex_repository(repo_url_input)
 
 elif(choice == "2"):
     repos = utils.get_saved_repo()
@@ -60,6 +42,16 @@ Select Repository : """
         print(f"\nSelected Repository : {repos[user_choice-1]}")
         selected_repo = repos[user_choice-1]
         repo_folder = f"data/{selected_repo}"
+        repo_info = storage.load_json(f"{repo_folder}/repo_info.json")
+        last_commit_hash = repo_info['last_commit_hash']
+        remote_commit_hash = utils.get_remote_commit_hash(repo_info['repo_url'])
+        if remote_commit_hash is None:
+            print("Could not check remote repository.")
+        elif last_commit_hash != remote_commit_hash:
+            repository_manager.reindex_repository(repo_info['repo_url'])
+        
+        # print(f"last_commit_hash : {last_commit_hash}")
+        # print(f"remote_commit_hash : {remote_commit_hash}")
         chunks = storage.load_json(f"{repo_folder}/chunks.json")
         embeddings = storage.load_json(f"{repo_folder}/embeddings.json")
         chunk_map = utils.build_chunkmap(chunks)
