@@ -7,12 +7,12 @@ import repo_context
 import utils
 import storage
 import shutil
-def reindex_repository(repo_url , repo_code_folder):
-    if os.path.exists(repo_code_folder):
-        shutil.rmtree(repo_code_folder , onexc= utils.remove_readonly)
+def reindex_repository(repo_url):
     repo_name = utils.extract_repo_name(repo_url)
     repo_folder = utils.create_repo_folder(repo_name)
     repo_code_folder = f"{repo_folder}/repository"
+    if os.path.exists(repo_code_folder):
+        shutil.rmtree(repo_code_folder , onexc= utils.remove_readonly)
     repo_downloader.download_repo(repo_url , repo_code_folder)
     last_commit_hash = utils.get_local_commit_hash(repo_code_folder)
     repo_info = {

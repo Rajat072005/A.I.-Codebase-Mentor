@@ -11,6 +11,7 @@ import utils
 import os
 import repository_manager
 import shutil
+import repo_retriever
 
 choice = input(
     f"""
@@ -26,7 +27,20 @@ if(choice == "1"):
     repo_url_input = input(
         "Provide the repository url : "
     )
-    repository_manager.reindex_repository(repo_url_input)
+    repo_name = utils.extract_repo_name(repo_url_input)
+    repo_folder = utils.create_repo_folder(repo_name)
+    if os.path.exists(repo_folder):
+        user_index_input = input(
+            "Repository already exists. Re-index? (y/n) : "
+        )
+        if user_index_input.lower() == 'y':
+            repository_manager.reindex_repository(repo_url_input)
+        elif user_index_input.lower() == 'n':
+            exit()
+    else:
+        repository_manager.reindex_repository(repo_url_input)
+
+    
 
 elif(choice == "2"):
     repos = utils.get_saved_repo()
@@ -51,11 +65,7 @@ Select Repository : """
             print("Could not check remote repository.")
         elif last_commit_hash != remote_commit_hash:
             print("executing...")
-            repository_manager.reindex_repository(repo_info['repo_url'] , repo_code_folder)
-
-        
-        # print(f"last_commit_hash : {last_commit_hash}")
-        # print(f"remote_commit_hash : {remote_commit_hash}")
+            repository_manager.reindex_repository(repo_info['repo_url'])
         chunks = storage.load_json(f"{repo_folder}/chunks.json")
         embeddings = storage.load_json(f"{repo_folder}/embeddings.json")
         chunk_map = utils.build_chunkmap(chunks)
@@ -63,23 +73,20 @@ Select Repository : """
         "Ask a question about the repository: "
         )
         question_type = question_classifier.question_classifier(question)
+        print("question type : " , question_type)
         if question_type == "casual":
             answer = llm_explainer.explain_casual(question)
         elif question_type =="repository":
-            results = storage.load_json(f"{repo_folder}/repo_context.json")
-            answer = llm_explainer.explain_repo(question,results) 
+            repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
+            results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
+            # answer = llm_explainer.explain_repo(question,results) 
         else:
             results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-            answer = llm_explainer.explain_code(question,results)
-        # results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
+            # answer = llm_explainer.explain_code(question,results)
 
-        # for index, result in enumerate (results , start = 1):
-        #     print(f"Retrieved File {index} : {result['path']}")
-        
-        #answer = llm_explainer.explain_code(question,results)
-
-
-        print(answer)
+        for index, result in enumerate(results, start=1):
+            print(f"Retrieved File {index}: {result['path']}")
+        # print(answer)
 
     
 

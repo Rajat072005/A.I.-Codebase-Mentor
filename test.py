@@ -1,4 +1,11 @@
 import utils
+
+import question_classifier
+
+question = input("ask a question about repo : ")
+question_type = question_classifier.question_classifier(question)
+print("question type : " , question_type)
+
 # repo_url = input("Provide Github Repository Url : ")
 
 # repo_name = utils.extract_repo_name(repo_url)
@@ -7,4 +14,5 @@ import utils
 # repos = utils.get_saved_repo()
 # utils.display_repositories(repos)
 
-print(utils.get_local_commit_hash('D:/AI CodeBase/data/SyncSphere-Website/repository'))
+# print(utils.get_local_commit_hash('D:/AI CodeBase/data/SyncSphere-Website/repository'))
+

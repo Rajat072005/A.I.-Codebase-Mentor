@@ -4,3 +4,6 @@ sample_repo/
 tempCodeRunnerFile.py
 .vscode/
 data/
+dataset.csv
+vectorizer.pkl
+classifier.pkl
