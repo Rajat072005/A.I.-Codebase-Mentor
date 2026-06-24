@@ -58,11 +58,39 @@ def build_repo_context(files):
         for signal , weight in IMPORTANT_SIGNALS.items():
             if signal in path :
                 score += weight
-        
+        path = file["path"].lower()
+
+        if "main" in path:
+            summary = "Main application entry point file."
+
+        elif "app" in path:
+            summary = "Core application component."
+
+        elif "package.json" in path:
+            summary = "Project dependencies and scripts configuration."
+
+        elif "vercel" in path:
+            summary = "Deployment configuration file."
+
+        elif "routes" in path:
+            summary = "Defines API routes."
+
+        elif "controllers" in path:
+            summary = "Contains business logic for handling requests."
+
+        elif "models" in path:
+            summary = "Database models and schemas."
+
+        elif "readme" in path:
+            summary = "Project overview and setup instructions."
+
+        else:
+            summary = f"Important project file: {file['path']}"
         if score>0 : 
             repo_context_files.append(
                 {
                     "path" : file['path'],
+                    "summary" : summary,
                     "content" : file['content'],
                     "score" : score
                 }
