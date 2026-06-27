@@ -1,3 +1,6 @@
+
+
+
 def create_chunks(files , chunk_size = 1000):
     all_chunks = []
     for file in files :

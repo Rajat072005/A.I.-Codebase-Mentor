@@ -12,7 +12,7 @@ import os
 import repository_manager
 import shutil
 import repo_retriever
-
+import memory
 choice = input(
     f"""
 1. Index Repository
@@ -74,19 +74,51 @@ Select Repository : """
         )
         question_type = question_classifier.question_classifier(question)
         print("question type : " , question_type)
-        if question_type == "casual":
-            answer = llm_explainer.explain_casual(question)
-        elif question_type =="repository":
-            repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
-            results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
-            # answer = llm_explainer.explain_repo(question,results) 
-        else:
-            results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-            # answer = llm_explainer.explain_code(question,results)
+        current_memory = memory.get_memory()
+        followup_words = [
+            "this",
+            "that",
+            "here",
+            "there",
+            "it",
+            "this function",
+            "that function"
+        ]
+        isFollowup = False
+        for word in followup_words:
+            if word in question.lower():
+                isFollowup = True
+                break
+        print("Question lower:", question.lower())
+        print("Current memory:", current_memory)
+        print("Last files exist:", bool(current_memory["last_files"]))
+        print("isFollowup:", isFollowup)
+        if isFollowup and current_memory["last_files"]:
+            results = current_memory["last_files"]
+            print("i am here in  followup")
 
-        for index, result in enumerate(results, start=1):
-            print(f"Retrieved File {index}: {result['path']}")
-        # print(answer)
+        else:
+            print("i am not in  followup")
+            if question_type == "casual":
+                answer = llm_explainer.explain_casual(question)
+            elif question_type =="repository":
+                repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
+                results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
+                answer = llm_explainer.explain_repo(question,results) 
+            else:
+                results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
+                answer = llm_explainer.explain_code(question,results)
+
+        
+
+        # for index, result in enumerate(results, start=1):
+        #     print(f"Retrieved File {index}: {result['path']}")
+
+        #print(answer)
+
+        memory.update_memory(question , question_type , results , answer)
+        #print(memory.get_memory())
+
 
     
 

@@ -1,10 +1,14 @@
 import utils
 
 import question_classifier
+import storage
+import memory
 
-question = input("ask a question about repo : ")
-question_type = question_classifier.question_classifier(question)
-print("question type : " , question_type)
+print(memory.get_memory())
+
+# question = input("ask a question about repo : ")
+# question_type = question_classifier.question_classifier(question)
+# print("question type : " , question_type)
 
 # repo_url = input("Provide Github Repository Url : ")
 
@@ -16,3 +20,5 @@ print("question type : " , question_type)
 
 # print(utils.get_local_commit_hash('D:/AI CodeBase/data/SyncSphere-Website/repository'))
 
+# chunks = storage.load_json("data\SyncSphere-Website\chunks.json")
+# print(len(chunks))

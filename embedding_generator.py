@@ -7,13 +7,8 @@ model = SentenceTransformer(
 def generate_embeddings(chunks):
     embeddings = []
     for chunk in chunks:
-        text = f"""
-        Path : {chunk["path"]}
-
-        Content : 
-        {chunk['content']}
-        """
-        vector = model.encode(text)
+        embedding_text = chunk["summary"] + "\n" + chunk["content"]
+        vector = model.encode(embedding_text)
 
         embedding_info = {
             "id" : f'{chunk['path']}_{chunk['chunk_id']}',

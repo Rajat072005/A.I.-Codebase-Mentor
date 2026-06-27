@@ -1,3 +1,5 @@
+#import file_summarizer
+import llm_explainer
 # IMPORTANT_FILES = {
 #     "readme",
 #     "package.json",
@@ -58,39 +60,12 @@ def build_repo_context(files):
         for signal , weight in IMPORTANT_SIGNALS.items():
             if signal in path :
                 score += weight
-        path = file["path"].lower()
-
-        if "main" in path:
-            summary = "Main application entry point file."
-
-        elif "app" in path:
-            summary = "Core application component."
-
-        elif "package.json" in path:
-            summary = "Project dependencies and scripts configuration."
-
-        elif "vercel" in path:
-            summary = "Deployment configuration file."
-
-        elif "routes" in path:
-            summary = "Defines API routes."
-
-        elif "controllers" in path:
-            summary = "Contains business logic for handling requests."
-
-        elif "models" in path:
-            summary = "Database models and schemas."
-
-        elif "readme" in path:
-            summary = "Project overview and setup instructions."
-
-        else:
-            summary = f"Important project file: {file['path']}"
+        #summary = file_summarizer.summarize_file(file['path'] ,file['content'] )
+        
         if score>0 : 
             repo_context_files.append(
                 {
                     "path" : file['path'],
-                    "summary" : summary,
                     "content" : file['content'],
                     "score" : score
                 }
@@ -100,6 +75,17 @@ def build_repo_context(files):
         reverse=True
     )
 
-    return repo_context_files[:15]
+    repo_context_files =  repo_context_files[:8]
+
+    summaries = llm_explainer.summarize_files(repo_context_files)
+
+    for file in repo_context_files:
+        file['summary'] = summaries.get(
+            file["path"],
+            f"Important File : {file['path']}"
+        )
+
+    return repo_context_files
     
             
+

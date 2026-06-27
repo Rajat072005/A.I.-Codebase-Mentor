@@ -1,7 +1,8 @@
 import google.generativeai as genai
 from  dotenv import load_dotenv
 import os
-
+import time
+import json
 load_dotenv()
 
 genai.configure(
@@ -102,8 +103,115 @@ def explain_repo(question , repo_context):
     return response.text
         
 def explain_casual(question):
+
     prompt = build_casual_prompt(question)
 
     response = model.generate_content(prompt)
 
     return response.text
+
+
+
+def summarize_files(files):
+    prompt = "You are analyzing a code repository.\n\n"
+
+    for file in files:
+        prompt += f"""
+File Path: {file['path']}
+
+File Content:
+{file['content'][:1000]}
+
+---
+"""
+
+    prompt += """
+Summarize each file in 2-3 lines.
+
+Return ONLY JSON.
+Do not add markdown.
+Do not add explanation.
+Do not wrap in ```json.
+Format:
+
+{
+    "path": "summary"
+}
+"""
+
+    response = model.generate_content(prompt)
+
+    clean_text = response.text.strip()
+
+    if clean_text.startswith("```json"):
+        clean_text = clean_text.replace("```json", "").replace("```", "").strip()
+
+    elif clean_text.startswith("```"):
+        clean_text = clean_text.replace("```", "").strip()
+
+    return json.loads(clean_text)
+# def summarize_files(files):
+#     prompt = "You are analyzing a code repository.\n\n"
+
+#     for file in files:
+#         prompt += f"""
+# File Path: {file['path']}
+
+# File Content:
+# {file['content'][:800]}
+
+# ---
+# """
+
+#     prompt += """
+# Summarize each file in 1-2 lines.
+
+# Return ONLY valid JSON in this format:
+
+# {
+#     "file_path": "summary"
+# }
+# """
+
+#     response = model.generate_content(prompt)
+
+#     return json.loads(response.text)
+
+
+def summarize_chunks(chunk_batch):
+    prompt = """
+You are analyzing code chunks of a repository files.
+
+Summarize each chunk in 1-2 lines.
+
+Return ONLY valid JSON.
+
+Format:
+{
+    "0": "summary",
+    "1": "summary"
+}
+"""
+
+    for index, chunk in enumerate(chunk_batch):
+        prompt += f"""
+
+Chunk {index}:
+{chunk['content'][:500]}
+
+---
+"""
+
+    response = model.generate_content(prompt)
+
+    clean_text = response.text.strip()
+
+    if clean_text.startswith("```json"):
+        clean_text = clean_text.replace("```json", "").replace("```", "").strip()
+
+    elif clean_text.startswith("```"):
+        clean_text = clean_text.replace("```", "").strip()
+
+    return json.loads(clean_text)
+
+    
