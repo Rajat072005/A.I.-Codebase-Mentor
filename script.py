@@ -89,16 +89,16 @@ Select Repository : """
             if word in question.lower():
                 isFollowup = True
                 break
-        print("Question lower:", question.lower())
-        print("Current memory:", current_memory)
-        print("Last files exist:", bool(current_memory["last_files"]))
-        print("isFollowup:", isFollowup)
+        # print("Question lower:", question.lower())
+        # print("Current memory:", current_memory)
+        # print("Last files exist:", bool(current_memory["last_files"]))
+        # print("isFollowup:", isFollowup)
         if isFollowup and current_memory["last_files"]:
             results = current_memory["last_files"]
-            print("i am here in  followup")
+            # print("i am here in  followup")
 
         else:
-            print("i am not in  followup")
+            # print("i am not in  followup")
             if question_type == "casual":
                 answer = llm_explainer.explain_casual(question)
             elif question_type =="repository":
@@ -115,8 +115,8 @@ Select Repository : """
         #     print(f"Retrieved File {index}: {result['path']}")
 
         #print(answer)
-
-        memory.update_memory(question , question_type , results , answer)
+        print(len(chunks))
+        # memory.update_memory(question , question_type , results , answer)
         #print(memory.get_memory())
 
 

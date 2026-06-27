@@ -4,7 +4,7 @@ import question_classifier
 import storage
 import memory
 
-print(memory.get_memory())
+# print(memory.get_memory())
 
 # question = input("ask a question about repo : ")
 # question_type = question_classifier.question_classifier(question)
@@ -20,5 +20,5 @@ print(memory.get_memory())
 
 # print(utils.get_local_commit_hash('D:/AI CodeBase/data/SyncSphere-Website/repository'))
 
-# chunks = storage.load_json("data\SyncSphere-Website\chunks.json")
-# print(len(chunks))
+chunks = storage.load_json("data\SyncSphere-Website\chunks.json")
+print(len(chunks))

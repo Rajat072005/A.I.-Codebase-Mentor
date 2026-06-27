@@ -28,18 +28,18 @@ def reindex_repository(repo_url):
     files = file_reader.read_repository(repo_code_folder)
     repository_context = repo_context.build_repo_context(files)
     chunks = chunker.create_chunks(files)
-    chunk_batches = file_summarizer.summarize_chunks(chunks)
-    all_summaries = []
-    time.sleep(40)
-    for batch in chunk_batches:
-        summaries = llm_explainer.summarize_chunks(batch)
-        for index,chunk in enumerate(batch):
+    # chunk_batches = file_summarizer.summarize_chunks(chunks)
+    # all_summaries = []
+    # time.sleep(40)
+    # for batch in chunk_batches:
+    #     summaries = llm_explainer.summarize_chunks(batch)
+    #     for index,chunk in enumerate(batch):
 
-            chunk["summary"]   = summaries[str(index)]
+    #         chunk["summary"]   = summaries[str(index)]
         
-        all_summaries.extend(batch)
-        time.sleep(10)
-    chunks = all_summaries
+    #     all_summaries.extend(batch)
+    #     time.sleep(10)
+    # chunks = all_summaries
 
         
     embeddings = embedding_generator.generate_embeddings(chunks)
