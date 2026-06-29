@@ -10,6 +10,7 @@ import shutil
 import file_summarizer
 import llm_explainer
 import time
+import chunk_summarizer
 
 def reindex_repository(repo_url):
     repo_name = utils.extract_repo_name(repo_url)
@@ -28,6 +29,15 @@ def reindex_repository(repo_url):
     files = file_reader.read_repository(repo_code_folder)
     repository_context = repo_context.build_repo_context(files)
     chunks = chunker.create_chunks(files)
+    #important_chunks = []
+    for chunk in chunks:
+        summary =  chunk_summarizer.summarize_chunk(chunk)
+        chunk['summary'] = summary
+           
+    # print("chunks : ",len(chunks))
+    # print("imp : ",len(important_chunks))
+        #chunk['summary'] = summary
+
     # chunk_batches = file_summarizer.summarize_chunks(chunks)
     # all_summaries = []
     # time.sleep(40)

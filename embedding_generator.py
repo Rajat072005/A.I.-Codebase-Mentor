@@ -8,7 +8,7 @@ def generate_embeddings(chunks):
     embeddings = []
     for chunk in chunks:
         # chunk["summary"] + "\n" +
-        embedding_text =  chunk["content"]
+        embedding_text = chunk["summary"] + "\n" + chunk["content"]
         vector = model.encode(embedding_text)
 
         embedding_info = {

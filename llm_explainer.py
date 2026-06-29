@@ -178,40 +178,65 @@ Format:
 #     return json.loads(response.text)
 
 
-def summarize_chunks(chunk_batch):
-    prompt = """
-You are analyzing code chunks of a repository files.
 
-Summarize each chunk in 1-2 lines.
+def summarize_chunk(content):
+    prompt = f"""
+You are analyzing a code chunk from a software repository.
 
-Return ONLY valid JSON.
+Your job is to summarize the chunk for semantic retrieval.
 
-Format:
-{
-    "0": "summary",
-    "1": "summary"
-}
-"""
+Code Chunk:
+{content}
 
-    for index, chunk in enumerate(chunk_batch):
-        prompt += f"""
+Rules:
+- Explain what this code does in 1-2 lines.
+- Mention important logic, purpose, and behavior.
+- Mention key functions, hooks, APIs, or state if present.
+- Focus on meaning, not syntax.
+- Keep it short and precise.
+- Do not explain line-by-line.
 
-Chunk {index}:
-{chunk['content'][:500]}
-
----
+Output only the summary.
 """
 
     response = model.generate_content(prompt)
 
-    clean_text = response.text.strip()
+    return response.text
 
-    if clean_text.startswith("```json"):
-        clean_text = clean_text.replace("```json", "").replace("```", "").strip()
+# def summarize_chunks(chunk_batch):
+#     prompt = """
+# You are analyzing code chunks of a repository files.
 
-    elif clean_text.startswith("```"):
-        clean_text = clean_text.replace("```", "").strip()
+# Summarize each chunk in 1-2 lines.
 
-    return json.loads(clean_text)
+# Return ONLY valid JSON.
+
+# Format:
+# {
+#     "0": "summary",
+#     "1": "summary"
+# }
+# """
+
+#     for index, chunk in enumerate(chunk_batch):
+#         prompt += f"""
+
+# Chunk {index}:
+# {chunk['content'][:500]}
+
+# ---
+# """
+
+#     response = model.generate_content(prompt)
+
+#     clean_text = response.text.strip()
+
+#     if clean_text.startswith("```json"):
+#         clean_text = clean_text.replace("```json", "").replace("```", "").strip()
+
+#     elif clean_text.startswith("```"):
+#         clean_text = clean_text.replace("```", "").strip()
+
+#     return json.loads(clean_text)
 
     
