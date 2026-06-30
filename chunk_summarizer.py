@@ -26,8 +26,8 @@ def is_important_chunk(chunk_content):
 def generate_local_summary(chunk):
     content = chunk['content']
 
-    functions = re.findall(r"function\s+(w+)" , content)
-    classes = re.findall(r"classes\s+(w+)" , content)
+    functions = re.findall(r"function\s+(\w+)" , content)
+    classes = re.findall(r"classes\s+(\w+)" , content)
     imports = re.findall(r"import\s+(.*?)\s+from" , content)
 
     summary_parts = []
@@ -43,12 +43,13 @@ def generate_local_summary(chunk):
 
     if not summary_parts:
         summary_parts.append(
-            "General UI or configuration code"
+            "Documentation or static text content"
         )
     return " | ".join(summary_parts)
 
 def summarize_chunk(chunk):
     if is_important_chunk(chunk['content']):
-        return llm_explainer.summarize_chunk(chunk['content'])
+        return True
 
-    return generate_local_summary(chunk)
+    else:
+        return False

@@ -28,11 +28,25 @@ def reindex_repository(repo_url):
     
     files = file_reader.read_repository(repo_code_folder)
     repository_context = repo_context.build_repo_context(files)
+    
     chunks = chunker.create_chunks(files)
-    #important_chunks = []
+    print(f"📊 Total chunks created: {len(chunks)}. Filtering important ones...")
+    important_chunks = []
     for chunk in chunks:
-        summary =  chunk_summarizer.summarize_chunk(chunk)
-        chunk['summary'] = summary
+        if chunk_summarizer.summarize_chunk(chunk):
+            chunk['summary'] = None
+            important_chunks.append(chunk)
+        else:
+            summary = chunk_summarizer.generate_local_summary(chunk)
+            chunk['summary'] = summary
+    print(f"Build repo files and chunks ,⏳ Sleeping 40 seconds to respect rate limits...")
+    print("Important chunks filtered : " , len(important_chunks))
+    time.sleep(40)
+    
+
+    file_summarizer.summarize_chunks(important_chunks , batch_size=10)
+
+        
            
     # print("chunks : ",len(chunks))
     # print("imp : ",len(important_chunks))

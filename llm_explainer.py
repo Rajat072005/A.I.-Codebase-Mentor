@@ -126,7 +126,7 @@ File Content:
 """
 
     prompt += """
-Summarize each file in 2-3 lines.
+Summarize each file in 1-2 lines.
 
 Return ONLY JSON.
 Do not add markdown.
@@ -150,6 +150,54 @@ Format:
         clean_text = clean_text.replace("```", "").strip()
 
     return json.loads(clean_text)
+
+def summarize_chunks(batch):
+    batch_text = ""
+
+    for index, chunk in enumerate(batch, start=1):
+        batch_text += f"""
+Chunk {index}:
+{chunk["content"]}
+
+"""
+
+    prompt = f"""
+You are analyzing multiple code chunks from a software repository.
+
+Your task:
+Summarize each chunk separately for semantic retrieval.
+
+Rules:
+- Return one summary per chunk.
+- Keep each summary 1-2 lines only.
+- Focus on what the code does.
+- Mention important logic, state, API calls, hooks, or behavior.
+- Keep summaries short and precise.
+- Do not explain line-by-line.
+
+Format strictly like this:
+
+Summary 1: ...
+Summary 2: ...
+Summary 3: ...
+
+Code Chunks:
+{batch_text}
+"""
+
+    response = model.generate_content(prompt)
+
+    raw_output = response.text.strip()
+
+    summaries = []
+
+    for line in raw_output.split("\n"):
+        if line.strip().startswith("Summary"):
+            summary_text = line.split(":", 1)[1].strip()
+            summaries.append(summary_text)
+
+    return summaries
+
 # def summarize_files(files):
 #     prompt = "You are analyzing a code repository.\n\n"
 
@@ -179,29 +227,29 @@ Format:
 
 
 
-def summarize_chunk(content):
-    prompt = f"""
-You are analyzing a code chunk from a software repository.
+# def summarize_chunk(content):
+#     prompt = f"""
+# You are analyzing a code chunk from a software repository.
 
-Your job is to summarize the chunk for semantic retrieval.
+# Your job is to summarize the chunk for semantic retrieval.
 
-Code Chunk:
-{content}
+# Code Chunk:
+# {content}
 
-Rules:
-- Explain what this code does in 1-2 lines.
-- Mention important logic, purpose, and behavior.
-- Mention key functions, hooks, APIs, or state if present.
-- Focus on meaning, not syntax.
-- Keep it short and precise.
-- Do not explain line-by-line.
+# Rules:
+# - Explain what this code does in 1-2 lines.
+# - Mention important logic, purpose, and behavior.
+# - Mention key functions, hooks, APIs, or state if present.
+# - Focus on meaning, not syntax.
+# - Keep it short and precise.
+# - Do not explain line-by-line.
 
-Output only the summary.
-"""
+# Output only the summary.
+# """
 
-    response = model.generate_content(prompt)
+#     response = model.generate_content(prompt)
 
-    return response.text
+#     return response.text
 
 # def summarize_chunks(chunk_batch):
 #     prompt = """

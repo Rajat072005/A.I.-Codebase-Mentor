@@ -100,22 +100,23 @@ Select Repository : """
         else:
             # print("i am not in  followup")
             if question_type == "casual":
-                answer = llm_explainer.explain_casual(question)
+                print("hello")
+                #answer = llm_explainer.explain_casual(question)
             elif question_type =="repository":
                 repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
                 results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
-                answer = llm_explainer.explain_repo(question,results) 
+                #answer = llm_explainer.explain_repo(question,results) 
             else:
                 results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-                answer = llm_explainer.explain_code(question,results)
+                #answer = llm_explainer.explain_code(question,results)
 
         
 
-        # for index, result in enumerate(results, start=1):
-        #     print(f"Retrieved File {index}: {result['path']}")
+        for index, result in enumerate(results, start=1):
+            print(f"Retrieved File {index}: {result['path']}")
 
         #print(answer)
-        print(len(chunks))
+        
         # memory.update_memory(question , question_type , results , answer)
         #print(memory.get_memory())
 
