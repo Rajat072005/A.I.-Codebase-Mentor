@@ -13,6 +13,8 @@ import repository_manager
 import shutil
 import repo_retriever
 import memory
+import context_builder
+import reranker
 choice = input(
     f"""
 1. Index Repository
@@ -69,56 +71,76 @@ Select Repository : """
         chunks = storage.load_json(f"{repo_folder}/chunks.json")
         embeddings = storage.load_json(f"{repo_folder}/embeddings.json")
         chunk_map = utils.build_chunkmap(chunks)
-        question = input(
-        "Ask a question about the repository: "
-        )
-        question_type = question_classifier.question_classifier(question)
-        print("question type : " , question_type)
-        current_memory = memory.get_memory()
-        followup_words = [
-            "this",
-            "that",
-            "here",
-            "there",
-            "it",
-            "this function",
-            "that function"
-        ]
-        isFollowup = False
-        for word in followup_words:
-            if word in question.lower():
-                isFollowup = True
+        while True:
+            question = input(
+                "Ask a question about the repository: "
+            )
+            if question.lower() == "exit":
+                print("Goodbye")
                 break
-        # print("Question lower:", question.lower())
-        # print("Current memory:", current_memory)
-        # print("Last files exist:", bool(current_memory["last_files"]))
-        # print("isFollowup:", isFollowup)
-        if isFollowup and current_memory["last_files"]:
-            results = current_memory["last_files"]
-            # print("i am here in  followup")
+            question_type = question_classifier.question_classifier(question)
+            print("question type : " , question_type)
+            current_memory = memory.get_memory(repo_folder)
+            followup_words = [
+                "this",
+                "that",
+                "here",
+                "there",
+                "it",
+                "this function",
+                "that function"
+            ]
+            isFollowup = False
+            if question_type != "casual":
+                question_words = question.lower().split()
+                for word in followup_words:
+                    if word in question_words:
+                        if current_memory["last_files"]:
+                            isFollowup = True
+                            break
 
-        else:
-            # print("i am not in  followup")
+        
             if question_type == "casual":
                 print("hello")
+                continue
                 #answer = llm_explainer.explain_casual(question)
             elif question_type =="repository":
-                repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
-                results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
+                if isFollowup:
+                    print("followup")
+                    results = current_memory["last_files"]
+                else:
+                    repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
+                    results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
+                #context = context_builder.build_context(chunk_map , results)
+            #print("context : " , context)
                 #answer = llm_explainer.explain_repo(question,results) 
             else:
-                results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-                #answer = llm_explainer.explain_code(question,results)
+                if isFollowup:
+                    results = current_memory["last_files"]
+                    print("followup")
+                else:
+                    results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
+                    reranked_results = reranker.rerank_chunks(question , results)
+                #context = context_builder.build_context(chunk_map , reranked_results)
+                #answer = llm_explainer.explain_code(question,context)
 
         
 
-        for index, result in enumerate(results, start=1):
-            print(f"Retrieved File {index}: {result['path']}")
-
-        #print(answer)
+            for index, result in enumerate(results, start=1):
+                    print(f"Retrieved File from results {index}: {result['path']}")
+            
+            for index, result in enumerate(reranked_results, start=1):
+                    print(f"Retrieved File from reranked results {index}: {result['path']}")
+            
+            memory.update_memory(repo_folder , question , question_type , results) #, answer)
+                
+            #print(answer)
+            
         
-        # memory.update_memory(question , question_type , results , answer)
-        #print(memory.get_memory())
+            
+            #print(memory.get_memory())
+            
+            
 
 
     

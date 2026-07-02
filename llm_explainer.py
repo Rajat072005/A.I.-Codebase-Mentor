@@ -45,19 +45,19 @@ Provide a clear, direct response based on the rules above.
 """
     return prompt
 
-def build_feature_prompt(question ,  chunks):
-    context = ""
+def build_feature_prompt(question ,  context):
+#     context = ""
 
-    for chunk in chunks:
-        context += f"""
-========== FILE ==========
-Path:
-{chunk["path"]}
+#     for chunk in chunks:
+#         context += f"""
+# ========== FILE ==========
+# Path:
+# {chunk["path"]}
 
-Code:
-{chunk["content"]}
+# Code:
+# {chunk["content"]}
 
-"""
+# """
 
     prompt = f"""
 You are an expert AI software engineer assistant helping a developer understand their repository.
@@ -88,8 +88,8 @@ User's Question:
     return prompt
 
 
-def explain_code(question , chunks):
-    prompt = build_feature_prompt(question , chunks)
+def explain_code(question , context):
+    prompt = build_feature_prompt(question , context)
 
     response = model.generate_content(prompt)
 
