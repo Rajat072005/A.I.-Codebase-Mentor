@@ -111,17 +111,23 @@ Select Repository : """
                 else:
                     repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
                     results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
-                #context = context_builder.build_context(chunk_map , results)
-            #print("context : " , context)
-                #answer = llm_explainer.explain_repo(question,results) 
+                    reranked_results , top_score = reranker.rerank_results(question , results)
+                    if top_score <7 :
+                        print("Low confidence retrieval. Try rephrasing your question.")
+                        # continue
+                #context = context_builder.build_repo_context(chunk_map , reranked_results)
+                #answer = llm_explainer.explain_repo(question,context) 
             else:
                 if isFollowup:
                     results = current_memory["last_files"]
                     print("followup")
                 else:
                     results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-                    reranked_results = reranker.rerank_chunks(question , results)
-                #context = context_builder.build_context(chunk_map , reranked_results)
+                    reranked_results , top_score = reranker.rerank_results(question , results)
+                    if top_score <7 :
+                        print("Low confidence retrieval. Try rephrasing your question.")
+                        # continue
+                #context = context_builder.build_code_context(chunk_map , reranked_results)
                 #answer = llm_explainer.explain_code(question,context)
 
         
@@ -132,7 +138,7 @@ Select Repository : """
             for index, result in enumerate(reranked_results, start=1):
                     print(f"Retrieved File from reranked results {index}: {result['path']}")
             
-            memory.update_memory(repo_folder , question , question_type , results) #, answer)
+            memory.update_memory(repo_folder , question , question_type , reranked_results) #, answer)
                 
             #print(answer)
             

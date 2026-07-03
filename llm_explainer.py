@@ -12,69 +12,50 @@ genai.configure(
 model = genai.GenerativeModel(
     "gemini-2.5-flash"
 )
-def build_repo_prompt(question , repo_context):
-    context = ""
+def build_repo_prompt(question , context):
 
-    for file in repo_context:
-        context += f"""
-========== FILE ==========
-Path:
-{file["path"]}
-
-Code:
-{file["content"]}
-
-"""
 
     prompt = f"""
-You are an expert AI software engineer & an expert software architect helping a developer understand their repository.
-Answer repository-level questions using the provided repository information.
-CRITICAL INSTRUCTIONS FOR HANDLING USER INPUT:
-1. CASUAL CHAT / GREETINGS: If the user says hello, asks how you are, or makes casual small talk, respond politely and naturally as an AI assistant. You do not need to look at the repository context for these.
-2. REPO QUESTIONS: If the user asks about the code, architecture, or features, use the provided "Repository Context" below to answer accurately. 
-3. OUT OF SCOPE: If they ask something completely unrelated to the code or casual chat (e.g., "What is the capital of France?"), politely remind them that you are here to help them with their codebase.
+You are an expert software architect.
 
-User's Question:
+Answer the user's repository question using ONLY the provided context.
+
+Rules:
+- Explain the architecture, flow, and file responsibilities clearly.
+- Mention how files connect with each other.
+- Focus on system behavior, not line-by-line code.
+- If the answer is incomplete from the context, say so.
+- Do not assume missing implementation details.
+
+Question:
 {question}
 
-Repository Context:
+Context:
 {context}
-
-Provide a clear, direct response based on the rules above.
-
 """
     return prompt
 
 def build_feature_prompt(question ,  context):
-#     context = ""
 
-#     for chunk in chunks:
-#         context += f"""
-# ========== FILE ==========
-# Path:
-# {chunk["path"]}
-
-# Code:
-# {chunk["content"]}
-
-# """
 
     prompt = f"""
-You are an expert AI software engineer assistant helping a developer understand their repository.
+    You are an expert software engineer.
 
-CRITICAL INSTRUCTIONS FOR HANDLING USER INPUT:
-1. CASUAL CHAT / GREETINGS: If the user says hello, asks how you are, or makes casual small talk, respond politely and naturally as an AI assistant. You do not need to look at the repository context for these.
-2. FEATURE QUESTIONS: If the user asks about the code, architecture, or features, use the provided "Repository Context" below to answer accurately. 
-3. OUT OF SCOPE: If they ask something completely unrelated to the code or casual chat (e.g., "What is the capital of France?"), politely remind them that you are here to help them with their codebase.
+    Answer the user's code question using ONLY the provided context.
 
-User's Question:
-{question}
+    Rules:
+    - Explain clearly and technically.
+    - Focus on code logic, flow, and purpose.
+    - Mention important functions, hooks, variables, and interactions.
+    - If the answer is not fully present in the context, say so.
+    - Do not make up code behavior.
 
-Repository Context:
-{context}
+    Question:
+    {question}
 
-Provide a clear, direct response based on the rules above.
-"""
+    Context:
+    {context}
+    """
     return prompt
 
 def build_casual_prompt(question):
@@ -288,3 +269,8 @@ Code Chunks:
 #     return json.loads(clean_text)
 
     
+
+# CRITICAL INSTRUCTIONS FOR HANDLING USER INPUT:
+# 1. CASUAL CHAT / GREETINGS: If the user says hello, asks how you are, or makes casual small talk, respond politely and naturally as an AI assistant. You do not need to look at the repository context for these.
+# 2. FEATURE QUESTIONS: If the user asks about the code, architecture, or features, use the provided "Repository Context" below to answer accurately. 
+# 3. OUT OF SCOPE: If they ask something completely unrelated to the code or casual chat (e.g., "What is the capital of France?"), politely remind them that you are here to help them with their codebase.

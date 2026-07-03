@@ -43,13 +43,3 @@ def retrieve_repo(question ,repo_context , top_k = 3):
 
 
 
-# path_bonus = 0
-#         for signal in ENTRY_SIGNALS:
-#             if signal in question.lower() and signal in file_path:
-#                 path_bonus += 0.2
-#         for signal in DEPLOY_SIGNALS:
-#             if signal in question.lower() and signal in file_path:
-#                 path_bonus += 0.2
-#         for signal in DEPENDENCY_SIGNALS:
-#             if signal in question.lower() and signal in file_path:
-#                 path_bonus += 0.2

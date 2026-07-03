@@ -1,11 +1,11 @@
 import json
 import google.generativeai as genai
 
-def rerank_chunks(question , results):
-    chunk_text = ""
+def rerank_results(question , results):
+    result_text = ""
     for index ,  result in enumerate(results , start=1):
-        chunk_text += f"""
-        Chunk {index} : 
+        result_text += f"""
+        Result {index} : 
         Path : {result['path']}
         Code : 
         {result['content']}
@@ -14,17 +14,17 @@ def rerank_chunks(question , results):
     prompt = f"""
     Question: {question}
 
-    Below are retrieved code chunks.
+    Below are retrieved results based on user question.
 
-    {chunk_text}
+    {result_text}
 
-    Rate each chunk from 1 to 10 based on relevance to the question.
+    Rate each Result from 1 to 10 based on relevance to the question.
 
     Return ONLY valid JSON:
 
     [
-    {{"chunk": 1, "score": 9}},
-    {{"chunk": 2, "score": 4}}
+    {{"result": 1, "score": 9}},
+    {{"result": 2, "score": 4}}
     ]
     """
 
@@ -39,8 +39,8 @@ def rerank_chunks(question , results):
 
     scores = sorted(scores , key=lambda x: x['score'] , reverse=True)
     reranked_results = []
-
+    top_score = scores[0]['score']
     for item in scores:
-        chunk_index = item['chunk'] - 1
-        reranked_results.append(results[chunk_index])
-    return reranked_results[:2]
+        result_index = item['result'] - 1
+        reranked_results.append(results[result_index])
+    return reranked_results , top_score
