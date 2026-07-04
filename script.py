@@ -15,6 +15,8 @@ import repo_retriever
 import memory
 import context_builder
 import reranker
+import keyword_retriever
+import hybrid_retriever
 choice = input(
     f"""
 1. Index Repository
@@ -110,8 +112,11 @@ Select Repository : """
                     results = current_memory["last_files"]
                 else:
                     repo_context_files = storage.load_json(f"{repo_folder}/repo_context.json")
-                    results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
-                    reranked_results , top_score = reranker.rerank_results(question , results)
+                    semantic_results = repo_retriever.retrieve_repo(question , repo_context_files , top_k = 3)
+                    keyword_documents = utils.make_repo_keyword_document(repo_context_files)
+                    keyword_results = keyword_retriever.retrieve(question , keyword_documents ,repo_context_files , top_k=3)
+                    merged_results = hybrid_retriever.merge_results(semantic_results , keyword_results , unique_key="path")
+                    reranked_results , top_score = reranker.rerank_results(question , merged_results)
                     if top_score <7 :
                         print("Low confidence retrieval. Try rephrasing your question.")
                         # continue
@@ -122,8 +127,11 @@ Select Repository : """
                     results = current_memory["last_files"]
                     print("followup")
                 else:
-                    results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-                    reranked_results , top_score = reranker.rerank_results(question , results)
+                    semantic_results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
+                    keyword_documents = utils.make_code_keyword_document(chunks)
+                    keyword_results = keyword_retriever.retrieve(question , keyword_documents ,chunks , top_k=3)
+                    merged_results = hybrid_retriever.merge_results(semantic_results , keyword_results , unique_key="id")
+                    reranked_results , top_score = reranker.rerank_results(question , merged_results)
                     if top_score <7 :
                         print("Low confidence retrieval. Try rephrasing your question.")
                         # continue
@@ -132,11 +140,16 @@ Select Repository : """
 
         
 
-            for index, result in enumerate(results, start=1):
-                    print(f"Retrieved File from results {index}: {result['path']}")
+            for index, result in enumerate(semantic_results, start=1):
+                    print(f"Retrieved File from semantic results {index}: {result['path']}")
             
+            for index, result in enumerate(keyword_results, start=1):
+                    print(f"Retrieved File from keyword results  {index}: {result['path']}")
+
             for index, result in enumerate(reranked_results, start=1):
                     print(f"Retrieved File from reranked results {index}: {result['path']}")
+
+            
             
             memory.update_memory(repo_folder , question , question_type , reranked_results) #, answer)
                 

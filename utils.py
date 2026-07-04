@@ -59,3 +59,24 @@ def get_remote_commit_hash(repo_url):
 def remove_readonly(func, path, _):
     os.chmod(path, stat.S_IWRITE)
     func(path)
+
+
+
+def make_code_keyword_document(chunks):
+    keyword_docs = []
+
+    for chunk in chunks : 
+        keyword_docs.append(
+            chunk['summary'] + '\n' + chunk['content']
+        )
+
+    return keyword_docs
+
+def make_repo_keyword_document(repo_files):
+    documents = []
+    for file in repo_files:
+        documents.append(
+            file['summary']
+        )
+
+    return documents

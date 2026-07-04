@@ -43,4 +43,4 @@ def rerank_results(question , results):
     for item in scores:
         result_index = item['result'] - 1
         reranked_results.append(results[result_index])
-    return reranked_results , top_score
+    return reranked_results[:3] , top_score
