@@ -1,6 +1,7 @@
 import re
 
 
+
 def split_js(content):
     pattern = r"(?=export\sdefault\sfunction|function\s|class\s|export\sdefault|const\s+\w+\s*=\s*\()"
     chunks = re.split(pattern, content)
