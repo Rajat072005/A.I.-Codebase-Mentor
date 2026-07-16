@@ -8,6 +8,24 @@ def build_chunkmap(chunks):
 
     return chunk_map
 
+def build_embeddingmap(embeddings):
+    embedding_map = {}
+    for embedding in embeddings:
+        embedding_map[embedding['id']] = embedding
+
+    return embedding_map
+
+# def build_embeddingmap(embeddings):
+#     embedding_map = {}
+#     for embedding in embeddings:
+#         # A quick safety check to see exactly what 'embedding' is
+#         if not isinstance(embedding, dict):
+#             print(f"Expected dict, but got {type(embedding)}: {embedding}")
+            
+#         embedding_map[embedding['id']] = embedding['embedding']
+
+#     return embedding_map
+
 def extract_repo_name(repo_url):
     return repo_url.rstrip("/").split("/")[-1]
 
@@ -67,7 +85,8 @@ def make_code_keyword_document(chunks):
 
     for chunk in chunks : 
         keyword_docs.append(
-            chunk['summary'] + '\n' + chunk['content']
+            # chunk['summary'] + '\n' +
+            chunk['content']
         )
 
     return keyword_docs

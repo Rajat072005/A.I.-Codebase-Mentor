@@ -17,6 +17,8 @@ import context_builder
 import reranker
 import keyword_retriever
 import hybrid_retriever
+import query_router
+import retrieval_filter
 choice = input(
     f"""
 1. Index Repository
@@ -73,6 +75,7 @@ Select Repository : """
         chunks = storage.load_json(f"{repo_folder}/chunks.json")
         embeddings = storage.load_json(f"{repo_folder}/embeddings.json")
         chunk_map = utils.build_chunkmap(chunks)
+        embedding_map = utils.build_embeddingmap(embeddings)
         while True:
             question = input(
                 "Ask a question about the repository: "
@@ -80,6 +83,12 @@ Select Repository : """
             if question.lower() == "exit":
                 print("Goodbye")
                 break
+            target_modules = query_router.detect_target_modules(question)
+            filtered_chunks = retrieval_filter.filter_chunks(chunks , target_modules)
+            filtered_embedding_vectors = retrieval_filter.filter_embeddings(embedding_map , filtered_chunks)
+
+            filtered_chunk_map = utils.build_chunkmap(filtered_chunks)
+            #filtered_embedding_map = utils.build_embeddingmap(filtered_embedding_vectors)
             question_type = question_classifier.question_classifier(question)
             print("question type : " , question_type)
             current_memory = memory.get_memory(repo_folder)
@@ -127,9 +136,9 @@ Select Repository : """
                     results = current_memory["last_files"]
                     print("followup")
                 else:
-                    semantic_results = retriever.retrieve(question , embeddings ,chunk_map, top_k = 3 )
-                    keyword_documents = utils.make_code_keyword_document(chunks)
-                    keyword_results = keyword_retriever.retrieve(question , keyword_documents ,chunks , top_k=3)
+                    semantic_results = retriever.retrieve(question , filtered_embedding_vectors ,filtered_chunk_map, top_k = 3 )
+                    keyword_documents = utils.make_code_keyword_document(filtered_chunks)
+                    keyword_results = keyword_retriever.retrieve(question , keyword_documents ,filtered_chunks , top_k=3)
                     merged_results = hybrid_retriever.merge_results(semantic_results , keyword_results , unique_key="id")
                     reranked_results , top_score = reranker.rerank_results(question , merged_results)
                     if top_score <7 :
@@ -138,8 +147,9 @@ Select Repository : """
                 #context = context_builder.build_code_context(chunk_map , reranked_results)
                 #answer = llm_explainer.explain_code(question,context)
 
-        
-
+            print("target modules : ", target_modules)
+            print("total chunks length : " , len(chunks))
+            print("total filtered chunks length : " , len(filtered_chunks))
             for index, result in enumerate(semantic_results, start=1):
                     print(f"Retrieved File from semantic results {index}: {result['path']}")
             

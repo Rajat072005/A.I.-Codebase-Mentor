@@ -1,5 +1,5 @@
 import re
-
+import metadata_extractor
 
 
 def split_js(content):
@@ -25,6 +25,7 @@ def create_chunks(files):
     for file in files:
         path = file["path"].lower()
         content = file["content"]
+        module_type , file_type = metadata_extractor.detect_module_type(path)
 
         if path.endswith((".js", ".jsx", ".ts", ".tsx")):
             file_chunks = split_js(content)
@@ -43,6 +44,8 @@ def create_chunks(files):
                 "id": f"{file['path']}_{idx}",
                 "path": file["path"],
                 "chunk_id": idx,
+                "module_type" : module_type,
+                "file_type" : file_type,
                 "content": chunk_content
             }
 

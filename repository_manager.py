@@ -32,19 +32,19 @@ def reindex_repository(repo_url):
     chunks = chunker.create_chunks(files)
     print(f"📊 Total chunks created: {len(chunks)}. Filtering important ones...")
     important_chunks = []
-    for chunk in chunks:
-        if chunk_summarizer.summarize_chunk(chunk):
-            chunk['summary'] = None
-            important_chunks.append(chunk)
-        else:
-            summary = chunk_summarizer.generate_local_summary(chunk)
-            chunk['summary'] = summary
-    print(f"Build repo files and chunks ,⏳ Sleeping 40 seconds to respect rate limits...")
-    print("Important chunks filtered : " , len(important_chunks))
-    time.sleep(40)
+    # for chunk in chunks:
+    #     if chunk_summarizer.summarize_chunk(chunk):
+    #         chunk['summary'] = None
+    #         important_chunks.append(chunk)
+    #     else:
+    #         summary = chunk_summarizer.generate_local_summary(chunk)
+    #         chunk['summary'] = summary
+    # print(f"Build repo files and chunks ,⏳ Sleeping 40 seconds to respect rate limits...")
+    # print("Important chunks filtered : " , len(important_chunks))
+    # time.sleep(40)
     
 
-    file_summarizer.summarize_chunks(important_chunks , batch_size=10)
+    # file_summarizer.summarize_chunks(important_chunks , batch_size=10)
 
         
            

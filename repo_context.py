@@ -60,7 +60,7 @@ def build_repo_context(files):
         for signal , weight in IMPORTANT_SIGNALS.items():
             if signal in path :
                 score += weight
-        #summary = file_summarizer.summarize_file(file['path'] ,file['content'] )
+        
         
         if score>0 : 
             repo_context_files.append(
@@ -77,13 +77,13 @@ def build_repo_context(files):
 
     repo_context_files =  repo_context_files[:10]
 
-    summaries = llm_explainer.summarize_files(repo_context_files)
+    # summaries = llm_explainer.summarize_files(repo_context_files)
 
-    for file in repo_context_files:
-        file['summary'] = summaries.get(
-            file["path"],
-            f"Important File : {file['path']}"
-        )
+    # for file in repo_context_files:
+    #     file['summary'] = summaries.get(
+    #         file["path"],
+    #         f"Important File : {file['path']}"
+    #     )
 
     return repo_context_files
     
