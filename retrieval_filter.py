@@ -1,6 +1,8 @@
 import query_router
 
 def filter_chunks(chunks , target_modules):
+    if not target_modules:
+        return chunks
     filtered_chunks = []
     for chunk in chunks:
         if chunk["module_type"] in target_modules:

@@ -139,10 +139,11 @@ Select Repository : """
                     semantic_results = retriever.retrieve(question , filtered_embedding_vectors ,filtered_chunk_map, top_k = 3 )
                     keyword_documents = utils.make_code_keyword_document(filtered_chunks)
                     keyword_results = keyword_retriever.retrieve(question , keyword_documents ,filtered_chunks , top_k=3)
-                    merged_results = hybrid_retriever.merge_results(semantic_results , keyword_results , unique_key="id")
-                    reranked_results , top_score = reranker.rerank_results(question , merged_results)
-                    if top_score <7 :
-                        print("Low confidence retrieval. Try rephrasing your question.")
+                    merged_results_1 = hybrid_retriever.merge_results(semantic_results , keyword_results , unique_key="id")
+                    merged_results_2 = hybrid_retriever.merge_results_rrf(semantic_results , keyword_results )
+                    #reranked_results , top_score = reranker.rerank_results(question , merged_results)
+                    # if top_score <7 :
+                    #     print("Low confidence retrieval. Try rephrasing your question.")
                         # continue
                 #context = context_builder.build_code_context(chunk_map , reranked_results)
                 #answer = llm_explainer.explain_code(question,context)
@@ -155,13 +156,17 @@ Select Repository : """
             
             for index, result in enumerate(keyword_results, start=1):
                     print(f"Retrieved File from keyword results  {index}: {result['path']}")
-
-            for index, result in enumerate(reranked_results, start=1):
-                    print(f"Retrieved File from reranked results {index}: {result['path']}")
+            for index, result in enumerate(merged_results_1, start=1):
+                    print(f"Retrieved File from merged results without rrf {index}: {result['path']}")
+            for index, result in enumerate(merged_results_2, start=1):
+                    print(f"Retrieved File from merged results with rrf {index}: {result['path']}",
+                          f"rrf score of result {index} : {result['rrf_score']}")
+            # for index, result in enumerate(reranked_results, start=1):
+            #         print(f"Retrieved File from reranked results {index}: {result['path']}")
 
             
             
-            memory.update_memory(repo_folder , question , question_type , reranked_results) #, answer)
+            #memory.update_memory(repo_folder , question , question_type , reranked_results) #, answer)
                 
             #print(answer)
             
