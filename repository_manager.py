@@ -30,7 +30,7 @@ def reindex_repository(repo_url):
     repository_context = repo_context.build_repo_context(files)
     
     chunks = chunker.create_chunks(files)
-    print(f"📊 Total chunks created: {len(chunks)}. Filtering important ones...")
+    print(f"📊 Total chunks created: {len(chunks)}")
     important_chunks = []
     # for chunk in chunks:
     #     if chunk_summarizer.summarize_chunk(chunk):

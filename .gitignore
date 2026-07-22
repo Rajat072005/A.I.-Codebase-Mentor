@@ -7,3 +7,4 @@ data/
 dataset.csv
 vectorizer.pkl
 classifier.pkl
+metadata_cache/

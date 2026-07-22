@@ -24,6 +24,7 @@ def create_chunks(files):
 
     for file in files:
         path = file["path"].lower()
+        knowledge_document = file["knowledge_document"]
         content = file["content"]
         module_type , file_type = metadata_extractor.detect_module_type(path)
 
@@ -46,6 +47,7 @@ def create_chunks(files):
                 "chunk_id": idx,
                 "module_type" : module_type,
                 "file_type" : file_type,
+                "knowledge_document" : knowledge_document,
                 "content": chunk_content
             }
 
