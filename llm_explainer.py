@@ -93,91 +93,91 @@ def explain_casual(question):
 
 
 
-def summarize_files(files):
-    prompt = "You are analyzing a code repository.\n\n"
+# def summarize_files(files):
+#     prompt = "You are analyzing a code repository.\n\n"
 
-    for file in files:
-        prompt += f"""
-File Path: {file['path']}
+#     for file in files:
+#         prompt += f"""
+# File Path: {file['path']}
 
-File Content:
-{file['content'][:1000]}
+# File Content:
+# {file['content'][:1000]}
 
----
-"""
+# ---
+# """
 
-    prompt += """
-Summarize each file in 1-2 lines.
+#     prompt += """
+# Summarize each file in 1-2 lines.
 
-Return ONLY JSON.
-Do not add markdown.
-Do not add explanation.
-Do not wrap in ```json.
-Format:
+# Return ONLY JSON.
+# Do not add markdown.
+# Do not add explanation.
+# Do not wrap in ```json.
+# Format:
 
-{
-    "path": "summary"
-}
-"""
+# {
+#     "path": "summary"
+# }
+# """
 
-    response = model.generate_content(prompt)
+#     response = model.generate_content(prompt)
 
-    clean_text = response.text.strip()
+#     clean_text = response.text.strip()
 
-    if clean_text.startswith("```json"):
-        clean_text = clean_text.replace("```json", "").replace("```", "").strip()
+#     if clean_text.startswith("```json"):
+#         clean_text = clean_text.replace("```json", "").replace("```", "").strip()
 
-    elif clean_text.startswith("```"):
-        clean_text = clean_text.replace("```", "").strip()
+#     elif clean_text.startswith("```"):
+#         clean_text = clean_text.replace("```", "").strip()
 
-    return json.loads(clean_text)
+#     return json.loads(clean_text)
 
-def summarize_chunks(batch):
-    batch_text = ""
+# def summarize_chunks(batch):
+#     batch_text = ""
 
-    for index, chunk in enumerate(batch, start=1):
-        batch_text += f"""
-Chunk {index}:
-{chunk["content"]}
+#     for index, chunk in enumerate(batch, start=1):
+#         batch_text += f"""
+# Chunk {index}:
+# {chunk["content"]}
 
-"""
+# """
 
-    prompt = f"""
-You are analyzing multiple code chunks from a software repository.
+#     prompt = f"""
+# You are analyzing multiple code chunks from a software repository.
 
-Your task:
-Summarize each chunk separately for semantic retrieval.
+# Your task:
+# Summarize each chunk separately for semantic retrieval.
 
-Rules:
-- Return one summary per chunk.
-- Keep each summary 1-2 lines only.
-- Focus on what the code does.
-- Mention important logic, state, API calls, hooks, or behavior.
-- Keep summaries short and precise.
-- Do not explain line-by-line.
+# Rules:
+# - Return one summary per chunk.
+# - Keep each summary 1-2 lines only.
+# - Focus on what the code does.
+# - Mention important logic, state, API calls, hooks, or behavior.
+# - Keep summaries short and precise.
+# - Do not explain line-by-line.
 
-Format strictly like this:
+# Format strictly like this:
 
-Summary 1: ...
-Summary 2: ...
-Summary 3: ...
+# Summary 1: ...
+# Summary 2: ...
+# Summary 3: ...
 
-Code Chunks:
-{batch_text}
-"""
+# Code Chunks:
+# {batch_text}
+# """
 
-    response = model.generate_content(prompt)
+#     response = model.generate_content(prompt)
 
-    raw_output = response.text.strip()
+#     raw_output = response.text.strip()
 
-    summaries = []
+#     summaries = []
 
-    for line in raw_output.split("\n"):
-        if line.strip().startswith("Summary"):
-            summary_text = line.split(":", 1)[1].strip()
-            summaries.append(summary_text)
+#     for line in raw_output.split("\n"):
+#         if line.strip().startswith("Summary"):
+#             summary_text = line.split(":", 1)[1].strip()
+#             summaries.append(summary_text)
 
-    return summaries
+#     return summaries
 
 
 
