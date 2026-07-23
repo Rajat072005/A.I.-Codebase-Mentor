@@ -11,7 +11,7 @@ def build_context(chunk_map , results):
         target_chunk = chunk_map[chunk_id]
 
         context += f"""
-        ============================================================
+        ------------------------------------------------------------
         FILE : 
         {target_chunk['path']}
 
@@ -24,7 +24,7 @@ def build_context(chunk_map , results):
         CODE:
         {target_chunk['content']}
 
-        ============================================================
+        ------------------------------------------------------------
         """
     return context
 
