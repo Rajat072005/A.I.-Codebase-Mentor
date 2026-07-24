@@ -2,6 +2,7 @@ import hashlib
 import os
 import json
 import llm_metadata_generator
+import time
 
 
 REPOSITORY_ROOT = "data/SyncSphere-Website/repository"
@@ -15,13 +16,16 @@ def get_metadata(file_path , file_content):
     if cache_file is None:
         metadata = llm_metadata_generator.generate_llm_metadata(file_content)
         _save_cache(cache_path , metadata , current_file_hash)
+        time.sleep(25)
         return metadata
     
     if _is_cache_valid(cache_file , current_file_hash):
+            print("metadata cache loaded for : " , file_path)
             return cache_file['metadata']
     
     updated_metadata = llm_metadata_generator.generate_llm_metadata(file_content)
     _save_cache(cache_path , updated_metadata , current_file_hash)
+    time.sleep(25)
     return updated_metadata
             
 

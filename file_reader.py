@@ -3,6 +3,7 @@ import llm_metadata_generator
 import build_document
 import time
 import metadata_cache
+import storage
 
 Skip_Folders = {'.git' , 'node_modules' , '__pycache__' , "venv" , 'dist' , 'build'}
 Allowed_extensions = [".py",
@@ -18,18 +19,13 @@ Allowed_extensions = [".py",
 Ignore_Files = {"package-lock.json", "yarn.lock", "pnpm-lock.yaml" , ".config.js" ,'robot.json'}
 def read_repository(repo_path):
     all_files = []
-    file_count = 0
+    
     for root , dirs , files in os.walk(repo_path):
         dirs[:] = [d for d in dirs if d not in Skip_Folders]
         
-        flag = 0
+        
         for file in files : 
-            file_count += 1
-            print(f"i am on file {file_count}")
-            if file_count >6:
-                print(f"6 files completed now i am breaking inner loop")
-                flag = 1
-                break
+            
             file_extension = os.path.splitext(file)[1]
             
             if file in Ignore_Files:
@@ -40,13 +36,13 @@ def read_repository(repo_path):
             file_path = os.path.join(root , file)
 
             try : 
+                
                 with open(file_path , "r" , encoding = "utf-8") as f:
                     content = f.read()
 
                 metadata = metadata_cache.get_metadata(file_path , content)
-                #metadata = llm_metadata_generator.generate_llm_metadata(content)
-                time.sleep(40)
                 if metadata is None:
+                    
                     metadata = {
                         "purpose": "",
                         "responsibilities": [],
@@ -64,7 +60,7 @@ def read_repository(repo_path):
                 print(f"could not read {file_path}")
                 print('error : ' , error)
 
-        if flag == 1:
-            break
-    print(f"total files metadata created {len(all_files)}")
+        
+    print("total files in repository : " , len(all_files))
+    
     return all_files

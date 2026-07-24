@@ -11,7 +11,7 @@ def retrieve(question , embeddings ,chunk_map, top_k = 3 ):
     for item in embeddings : 
         score = cosine_similarity(
             [question_embedding],
-            [item['embedding']]
+            [item['code_embedding']]
         )[0][0]
         chunk = chunk_map[item['id']]
 

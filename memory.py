@@ -17,7 +17,7 @@ def get_memory(repo_folder):
         return json.load(file)
 
 
-def update_memory(repo_folder, question, question_type, files): #,answer)
+def update_memory(repo_folder, question, question_type, files ,answer): 
     memory_file = f"{repo_folder}/memory.json"
 
     memory_data = {

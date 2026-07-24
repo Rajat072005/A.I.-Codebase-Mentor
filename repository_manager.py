@@ -27,47 +27,13 @@ def reindex_repository(repo_url):
     }
     
     files = file_reader.read_repository(repo_code_folder)
-    repository_context = repo_context.build_repo_context(files)
     
     chunks = chunker.create_chunks(files)
     print(f"📊 Total chunks created: {len(chunks)}")
-    important_chunks = []
-    # for chunk in chunks:
-    #     if chunk_summarizer.summarize_chunk(chunk):
-    #         chunk['summary'] = None
-    #         important_chunks.append(chunk)
-    #     else:
-    #         summary = chunk_summarizer.generate_local_summary(chunk)
-    #         chunk['summary'] = summary
-    # print(f"Build repo files and chunks ,⏳ Sleeping 40 seconds to respect rate limits...")
-    # print("Important chunks filtered : " , len(important_chunks))
-    # time.sleep(40)
     
-
-    # file_summarizer.summarize_chunks(important_chunks , batch_size=10)
-
-        
-           
-    # print("chunks : ",len(chunks))
-    # print("imp : ",len(important_chunks))
-        #chunk['summary'] = summary
-
-    # chunk_batches = file_summarizer.summarize_chunks(chunks)
-    # all_summaries = []
-    # time.sleep(40)
-    # for batch in chunk_batches:
-    #     summaries = llm_explainer.summarize_chunks(batch)
-    #     for index,chunk in enumerate(batch):
-
-    #         chunk["summary"]   = summaries[str(index)]
-        
-    #     all_summaries.extend(batch)
-    #     time.sleep(10)
-    # chunks = all_summaries
 
         
     embeddings = embedding_generator.generate_embeddings(chunks)
     storage.save_json(repo_info , f"{repo_folder}/repo_info.json")
-    storage.save_json(repository_context , f"{repo_folder}/repo_context.json")
     storage.save_json(chunks , f"{repo_folder}/chunks.json")
     storage.save_json(embeddings , f"{repo_folder}/embeddings.json")

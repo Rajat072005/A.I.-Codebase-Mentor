@@ -6,29 +6,21 @@ from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-def retrieve_repo(question ,repo_context , top_k = 3):
+def retrieve_repo(question , embeddings ,chunk_map, top_k = 3):
     question_embedding = model.encode(question)
     results = [] 
-    for file in repo_context:
-        # file_path = file["path"].lower()
-        searchable_text = (
-            # file['path'] + "\n" +
-            file['summary'] 
-            # file['content']
-        )
-        file_embedding = model.encode(searchable_text)
-
+    for item in embeddings:
         score = cosine_similarity(
-            [question_embedding],
-            [file_embedding]
-        )[0][0]
-
+                    [question_embedding],
+                    [item['repo_embedding']]
+                )[0][0]
+        chunk = chunk_map[item['id']]
         results.append(
             {
-                "path" : file['path'],
-                "summary" : file['summary'],
-                "content" : file['content'],
-                "score" : float(score)
+                "id" : chunk['id'],
+                "path" : chunk['path'],
+                "score" : float(score),
+                "content" : chunk['content']
             }
         )
 
@@ -36,7 +28,15 @@ def retrieve_repo(question ,repo_context , top_k = 3):
         key=lambda x : x['score'],
         reverse=True
     )
-    return results[:top_k]
+
+    seen = set()
+    unique_results = []
+
+    for result in results:
+        if result["path"] not in seen:
+            seen.add(result["path"])
+            unique_results.append(result)
+    return unique_results[:top_k]
          
 
 

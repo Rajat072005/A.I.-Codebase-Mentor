@@ -21,7 +21,7 @@ Keywords:
     return doc.strip()
 
 
-def build_embedding_document(chunk):
+def build_code_embedding_document(chunk):
     
     doc = f"""
 {chunk["knowledge_document"]}
@@ -30,6 +30,15 @@ def build_embedding_document(chunk):
 
 Implementation: 
 {chunk["content"]}
+"""
+    
+    return doc.strip()
+
+
+def build_repo_embedding_document(chunk):
+    
+    doc = f"""
+{chunk["knowledge_document"]}
 """
     
     return doc.strip()

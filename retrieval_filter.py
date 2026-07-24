@@ -5,7 +5,7 @@ def filter_chunks(chunks , target_modules):
         return chunks
     filtered_chunks = []
     for chunk in chunks:
-        if chunk["module_type"] in target_modules:
+        if chunk["module_type"] in target_modules or chunk["module_type"] == 'general':
             filtered_chunks.append(chunk)
 
     return filtered_chunks

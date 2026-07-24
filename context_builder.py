@@ -16,7 +16,7 @@ def build_context(chunk_map , results):
         {target_chunk['path']}
 
         CHUNK:
-        {target_chunk[chunk_id]}
+        {target_chunk["chunk_id"]}
 
         KNOWLEDGE: 
         {target_chunk['knowledge_document']}

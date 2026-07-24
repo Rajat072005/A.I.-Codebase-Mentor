@@ -8,13 +8,16 @@ model = SentenceTransformer(
 def generate_embeddings(chunks):
     embeddings = []
     for chunk in chunks:
-        # chunk["summary"] + "\n" +
-        embedding_text =  build_document.build_embedding_document(chunk)
-        vector = model.encode(embedding_text)
+        
+        code_embedding_text =  build_document.build_code_embedding_document(chunk)
+        repo_embedding_text =  build_document.build_repo_embedding_document(chunk)
+        code_vector = model.encode(code_embedding_text)
+        repo_vector = model.encode(repo_embedding_text)
 
         embedding_info = {
             "id" : f'{chunk['path']}_{chunk['chunk_id']}',
-            "embedding" : vector.tolist()
+            "code_embedding" : code_vector.tolist(),
+            "repo_embedding" : repo_vector.tolist()
         }
         embeddings.append(embedding_info)
     return embeddings
