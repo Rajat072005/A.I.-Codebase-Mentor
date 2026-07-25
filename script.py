@@ -2,12 +2,10 @@
 import retriever
 import llm_explainer
 import question_classifier
-import repo_context
 import storage
 import utils
 import os
 import repository_manager
-import shutil
 import repo_retriever
 import memory
 import context_builder
@@ -18,6 +16,7 @@ import query_router
 import retrieval_filter
 import prompt_builder
 import repo_retrieval_files
+import confidence_handler
 choice = input(
     f"""
 1. Index Repository
@@ -118,31 +117,32 @@ Select Repository : """
             elif question_type =="repository":
                 if isFollowup:
                     print("followup")
-                    results = current_memory["last_files"]
+                    repo_results = current_memory["last_files"]
                 else:
-                
                     semantic_results = repo_retriever.retrieve_repo(question , filtered_embedding_vectors ,filtered_chunk_map, top_k = 3)
                     keyword_documents = utils.make_repo_keyword_document(filtered_chunks)
                     keyword_results = keyword_retriever.retrieve(question , keyword_documents ,filtered_chunks , top_k=3)
                     merged_results = hybrid_retriever.merge_results_rrf(semantic_results , keyword_results )
                     reranked_results , top_score = reranker.rerank_results(question , merged_results)
-                    if top_score <7 :
-                        print("Low confidence retrieval. Try rephrasing your question.")
-                        continue
-                repo_results = repo_retrieval_files.expand_files_to_chunks(reranked_results , filtered_chunks)
-                context = context_builder.build_context(chunk_map , repo_results)
-                prompt = prompt_builder.build_repository_prompt(
-                    prompt_builder.ROLE_REPO,
-                    prompt_builder.OBJECTIVE_REPO,
-                    prompt_builder.RULES_REPO,
-                    question,
-                    context
-                )
-                answer = llm_explainer.generate_answer(prompt)
+                    repo_results = repo_retrieval_files.expand_files_to_chunks(reranked_results , filtered_chunks)
+                    
+                
+                if confidence_handler._should_answer(top_score):
+                    context = context_builder.build_context(chunk_map , repo_results)
+                    prompt = prompt_builder.build_repository_prompt(
+                        prompt_builder.ROLE_REPO,
+                        prompt_builder.OBJECTIVE_REPO,
+                        prompt_builder.RULES_REPO,
+                        question,
+                        context
+                    )
+                    answer = llm_explainer.generate_answer(prompt)
+                else:
+                    answer = confidence_handler.build_low_confidence_message(question)
                 print(answer)
             else:
                 if isFollowup:
-                    results = current_memory["last_files"]
+                    reranked_results = current_memory["last_files"]
                     print("followup")
                 else:
                     semantic_results = retriever.retrieve(question , filtered_embedding_vectors ,filtered_chunk_map, top_k = 3 )
@@ -150,17 +150,18 @@ Select Repository : """
                     keyword_results = keyword_retriever.retrieve(question , keyword_documents ,filtered_chunks , top_k=3)
                     merged_results = hybrid_retriever.merge_results_rrf(semantic_results , keyword_results )
                     reranked_results , top_score = reranker.rerank_results(question , merged_results)
-                    if top_score <7 :
-                        print("Low confidence retrieval. Try rephrasing your question.")
-                context = context_builder.build_context(chunk_map , reranked_results)
-                prompt = prompt_builder.build_repository_prompt(
-                    prompt_builder.ROLE_FEATURE,
-                    prompt_builder.OBJECTIVE_FEATURE,
-                    prompt_builder.RULES_FEATURE,
-                    question,
-                    context
-                )
-                answer = llm_explainer.generate_answer(prompt)
+                if confidence_handler._should_answer(top_score):
+                    context = context_builder.build_context(chunk_map , reranked_results)
+                    prompt = prompt_builder.build_repository_prompt(
+                        prompt_builder.ROLE_FEATURE,
+                        prompt_builder.OBJECTIVE_FEATURE,
+                        prompt_builder.RULES_FEATURE,
+                        question,
+                        context
+                    )
+                    answer = llm_explainer.generate_answer(prompt)
+                else:
+                    answer = confidence_handler.build_low_confidence_message(question)
                 print(answer)
 
             print("target modules : ", target_modules)
@@ -181,16 +182,6 @@ Select Repository : """
             
             
             memory.update_memory(repo_folder , question , question_type , reranked_results , answer)
-            
-            
-
-
-    
-
-
-
-
-
 
 
 
