@@ -86,7 +86,6 @@ Select Repository : """
             filtered_embedding_vectors = retrieval_filter.filter_embeddings(embedding_map , filtered_chunks)
 
             filtered_chunk_map = utils.build_chunkmap(filtered_chunks)
-            #filtered_embedding_map = utils.build_embeddingmap(filtered_embedding_vectors)
             question_type = question_classifier.question_classifier(question)
             print("question type : " , question_type)
             current_memory = memory.get_memory(repo_folder)
