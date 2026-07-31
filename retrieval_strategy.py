@@ -4,15 +4,13 @@ RETRIEVAL_STRATEGIES = {
 
         "retrieve_files": 6,
 
-        "expand_files": False,
-
         "preview_chunks" : 2,
 
         "retrieve_chunks": False,
 
-        "neighbor_expansion": False,
+        "neighbour_expansion": False,
 
-        "chunks_per_file": 0,
+        "chunks_per_file": 2,
 
         "chunk_count": 0,
 
@@ -20,7 +18,48 @@ RETRIEVAL_STRATEGIES = {
 
         "prompt_template": "overview"
 
-    }
+    },
+
+    "architecture": {
+
+        "retrieve_files": 6,
+
+    
+        "preview_chunks" : 2,
+    
+        "retrieve_chunks": False,
+    
+        "neighbor_expansion": False,
+    
+        "chunks_per_file": 0,
+    
+        "chunk_count": 0,
+    
+        "confidence_threshold": 4,
+    
+        "prompt_template": "overview"
+    
+    },
+    "debug": {
+    
+            "retrieve_files": 6,
+    
+    
+            "preview_chunks" : 2,
+    
+            "retrieve_chunks": False,
+    
+            "neighbor_expansion": False,
+    
+            "chunks_per_file": 0,
+    
+            "chunk_count": 0,
+    
+            "confidence_threshold": 4,
+    
+            "prompt_template": "overview"
+    
+        }
 
 }
 

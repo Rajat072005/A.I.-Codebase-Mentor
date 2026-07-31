@@ -18,6 +18,7 @@ def retrieve(question , embeddings ,chunk_map, top_k = 3 ):
         results.append(
             {
                 "id" : item["id"],
+                "chunk_id" : chunk["chunk_id"],
                 "score" : float(score),
                 "path" : f"""{chunk['path']}""",
                 "content" : f"""{chunk['content']}"""

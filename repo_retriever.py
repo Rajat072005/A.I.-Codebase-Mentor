@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-def retrieve_repo(question , embeddings ,chunk_map, top_k = 3):
+def retrieve_repo(question , embeddings ,chunk_map, top_k):
     question_embedding = model.encode(question)
     results = [] 
     for item in embeddings:
@@ -19,7 +19,7 @@ def retrieve_repo(question , embeddings ,chunk_map, top_k = 3):
             {
                 "id" : chunk['id'],
                 "path" : chunk['path'],
-                "score" : float(score),
+                "semantic_score" : float(score),
                 "content" : chunk['content']
             }
         )
