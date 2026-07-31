@@ -22,45 +22,123 @@ RETRIEVAL_STRATEGIES = {
 
     "architecture": {
 
-        "retrieve_files": 6,
+        "retrieve_files": 5,
 
+        "preview_chunks" : 0,
     
-        "preview_chunks" : 2,
-    
-        "retrieve_chunks": False,
+        "retrieve_chunks": True,
     
         "neighbor_expansion": False,
     
         "chunks_per_file": 0,
     
-        "chunk_count": 0,
+        "chunk_count": 5,
     
-        "confidence_threshold": 4,
+        "confidence_threshold": 5,
     
-        "prompt_template": "overview"
+        "prompt_template": "architecture"
     
     },
+    
     "debug": {
-    
-            "retrieve_files": 6,
-    
-    
-            "preview_chunks" : 2,
-    
-            "retrieve_chunks": False,
-    
-            "neighbor_expansion": False,
-    
-            "chunks_per_file": 0,
-    
-            "chunk_count": 0,
-    
-            "confidence_threshold": 4,
-    
-            "prompt_template": "overview"
-    
-        }
 
+        "retrieve_files": 3,
+    
+        "preview_chunks" : 0,
+    
+        "retrieve_chunks": True,
+    
+        "neighbor_expansion": True,
+    
+        "chunks_per_file": 0,
+    
+        "chunk_count": 6,
+    
+        "confidence_threshold": 6,
+    
+        "prompt_template": "debug"
+    
+    },
+
+    "implementation": {
+    
+        "retrieve_files": 3,
+        
+        "preview_chunks" : 0,
+        
+        "retrieve_chunks": True,
+        
+        "neighbor_expansion": False,
+        
+        "chunks_per_file": 0,
+        
+        "chunk_count": 6,
+        
+        "confidence_threshold": 5,
+        
+        "prompt_template": "implementation"
+        
+    },
+
+    "comaprision": {
+
+        "retrieve_files": 4,
+        
+        "preview_chunks" : 0,
+        
+        "retrieve_chunks": True,
+        
+        "neighbor_expansion": False,
+        
+        "chunks_per_file": 0,
+        
+        "chunk_count": 6,
+        
+        "confidence_threshold": 5,
+        
+        "prompt_template": "comparision"
+        
+    },
+
+    "locate": {
+    
+        "retrieve_files": 2,
+        
+        "preview_chunks" : 2,
+        
+        "retrieve_chunks": False,
+        
+        "neighbor_expansion": False,
+        
+        "chunks_per_file": 0,
+        
+        "chunk_count": 6,
+        
+        "confidence_threshold": 4,
+        
+        "prompt_template": "locate"
+        
+    },
+
+    "casual": {
+    
+        "retrieve_files": 0,
+        
+        "preview_chunks" : 0,
+        
+        "retrieve_chunks": False,
+        
+        "neighbor_expansion": False,
+        
+        "chunks_per_file": 0,
+        
+        "chunk_count": 0,
+        
+        "confidence_threshold": 5,
+        
+        "prompt_template": "casual"
+        
+    },
 }
 
 def get_strategy(intent):

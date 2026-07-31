@@ -21,11 +21,10 @@ def execute_strategy(
         final_score = top_chunk_score
     else:
         final_score = top_file_score
-        
+
     return context_chunks , final_score
 
 
-    
 def retrieve_candidate_files(
     question,
     chunks,
@@ -39,6 +38,7 @@ def retrieve_candidate_files(
     merged_files = hybrid_retriever.merge_results_rrf(semantic_files , keyword_files )
     candidate_files , top_file_score = reranker.rerank_results(question , merged_files)
     return candidate_files, top_file_score
+
 
 def expand_candidate_files(
     candidate_files,
@@ -96,6 +96,7 @@ def prepare_context_chunks(
             return final_expanded_chunks , top_chunk_score
 
         return reranked_results[:top_k],top_chunk_score
+
 
 def expand_neighbour_chunks(
     reranked_chunks,

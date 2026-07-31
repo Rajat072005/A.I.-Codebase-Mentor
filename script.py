@@ -1,22 +1,18 @@
 
-import retriever
 import llm_explainer
 import question_classifier
 import storage
 import utils
 import os
 import repository_manager
-import repo_retriever
 import memory
 import context_builder
-import reranker
-import keyword_retriever
-import hybrid_retriever
 import query_router
 import retrieval_filter
 import prompt_builder
 import repo_retrieval_files
 import confidence_handler
+import strategy_executor
 choice = input(
     f"""
 1. Index Repository
@@ -113,74 +109,40 @@ Select Repository : """
                 answer = llm_explainer.generate_answer(prompt)
                 print(answer)
                 continue
-            elif question_type =="repository":
-                if isFollowup:
-                    print("followup")
-                    repo_results = current_memory["last_files"]
-                else:
-                    semantic_results = repo_retriever.retrieve_repo(question , filtered_embedding_vectors ,filtered_chunk_map, top_k = 3)
-                    keyword_documents = utils.make_repo_keyword_document(filtered_chunks)
-                    keyword_results = keyword_retriever.retrieve(question , keyword_documents ,filtered_chunks , top_k=3)
-                    merged_results = hybrid_retriever.merge_results_rrf(semantic_results , keyword_results )
-                    reranked_results , top_score = reranker.rerank_results(question , merged_results)
-                    repo_results = repo_retrieval_files.expand_files_to_chunks(reranked_results , filtered_chunks)
-                    
-                
+            else :
+                strategy = STRATEGIES[question_type]
+                context_chunks , top_score = strategy_executor.execute_strategy(question , strategy , filtered_chunks , filtered_chunk_map , filtered_embedding_vectors)
+
                 if confidence_handler._should_answer(top_score):
-                    context = context_builder.build_context(chunk_map , repo_results)
-                    prompt = prompt_builder.build_repository_prompt(
-                        prompt_builder.ROLE_REPO,
-                        prompt_builder.OBJECTIVE_REPO,
-                        prompt_builder.RULES_REPO,
-                        question,
-                        context
-                    )
-                    answer = llm_explainer.generate_answer(prompt)
+                    context = context_builder.build_context(chunk_map , context_chunks)
+                    #prompt
+                    # answer
+                    # print(answer) 
                 else:
                     answer = confidence_handler.build_low_confidence_message(question)
-                print(answer)
-            else:
-                if isFollowup:
-                    reranked_results = current_memory["last_files"]
-                    print("followup")
-                else:
-                    semantic_results = retriever.retrieve(question , filtered_embedding_vectors ,filtered_chunk_map, top_k = 3 )
-                    keyword_documents = utils.make_code_keyword_document(filtered_chunks)
-                    keyword_results = keyword_retriever.retrieve(question , keyword_documents ,filtered_chunks , top_k=3)
-                    merged_results = hybrid_retriever.merge_results_rrf(semantic_results , keyword_results )
-                    reranked_results , top_score = reranker.rerank_results(question , merged_results)
-                if confidence_handler._should_answer(top_score):
-                    context = context_builder.build_context(chunk_map , reranked_results)
-                    prompt = prompt_builder.build_repository_prompt(
-                        prompt_builder.ROLE_FEATURE,
-                        prompt_builder.OBJECTIVE_FEATURE,
-                        prompt_builder.RULES_FEATURE,
-                        question,
-                        context
-                    )
-                    answer = llm_explainer.generate_answer(prompt)
-                else:
-                    answer = confidence_handler.build_low_confidence_message(question)
-                print(answer)
+                    print(answer)
+
 
             print("target modules : ", target_modules)
             print("total chunks length : " , len(chunks))
             print("total filtered chunks length : " , len(filtered_chunks))
-            for index, result in enumerate(semantic_results, start=1):
-                    print(f"Retrieved File from semantic results {index}: {result['path']}")
-            
-            for index, result in enumerate(keyword_results, start=1):
-                    print(f"Retrieved File from keyword results  {index}: {result['path']}")
 
-            for index, result in enumerate(merged_results, start=1):
-                    print(f"Retrieved File from merged results with rrf {index}: {result['path']}",
-                          f"rrf score of result {index} : {result['rrf_score']}")
-            for index, result in enumerate(reranked_results, start=1):
-                    print(f"Retrieved File from reranked results {index}: {result['path']}")
+
+            # for index, result in enumerate(semantic_results, start=1):
+            #         print(f"Retrieved File from semantic results {index}: {result['path']}")
+            
+            # for index, result in enumerate(keyword_results, start=1):
+            #         print(f"Retrieved File from keyword results  {index}: {result['path']}")
+
+            # for index, result in enumerate(merged_results, start=1):
+            #         print(f"Retrieved File from merged results with rrf {index}: {result['path']}",
+            #               f"rrf score of result {index} : {result['rrf_score']}")
+            # for index, result in enumerate(reranked_results, start=1):
+            #         print(f"Retrieved File from reranked results {index}: {result['path']}")
 
             
             
-            memory.update_memory(repo_folder , question , question_type , reranked_results , answer)
+            # memory.update_memory(repo_folder , question , question_type , reranked_results , answer)
 
 
 
