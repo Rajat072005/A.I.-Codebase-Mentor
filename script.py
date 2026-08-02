@@ -104,7 +104,7 @@ Select Repository : """
 
         
             if question_type == "casual":
-                prompt = prompt_builder.build_casual_prompt(question)
+                prompt = prompt_builder.build_prompt(intent , question , "")
                 answer = llm_explainer.generate_answer(prompt)
                 print(answer)
                 continue
@@ -114,7 +114,7 @@ Select Repository : """
 
                 if confidence_handler._should_answer(top_score):
                     context = context_builder.build_context(chunk_map , context_chunks)
-                    #prompt
+                    prompt = prompt_builder.build_prompt(intent , question , context)
                     # answer
                     # print(answer) 
                 else:
