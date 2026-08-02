@@ -80,7 +80,7 @@ RETRIEVAL_STRATEGIES = {
         
     },
 
-    "comaprision": {
+    "comaprison": {
 
         "retrieve_files": 4,
         

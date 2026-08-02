@@ -77,11 +77,10 @@ Select Repository : """
             if question.lower() == "exit":
                 print("Goodbye")
                 break
-            target_modules = query_router.detect_target_modules(question)
-            filtered_chunks = retrieval_filter.filter_chunks(chunks , target_modules)
-            filtered_embedding_vectors = retrieval_filter.filter_embeddings(embedding_map , filtered_chunks)
-
-            filtered_chunk_map = utils.build_chunkmap(filtered_chunks)
+            # target_modules = query_router.detect_target_modules(question)
+            # filtered_chunks = retrieval_filter.filter_chunks(chunks , target_modules)
+            # filtered_embedding_vectors = retrieval_filter.filter_embeddings(embedding_map , filtered_chunks)
+            # filtered_chunk_map = utils.build_chunkmap(filtered_chunks)
             question_type = question_classifier.question_classifier(question)
             print("question type : " , question_type)
             current_memory = memory.get_memory(repo_folder)
@@ -111,7 +110,7 @@ Select Repository : """
                 continue
             else :
                 strategy = STRATEGIES[question_type]
-                context_chunks , top_score = strategy_executor.execute_strategy(question , strategy , filtered_chunks , filtered_chunk_map , filtered_embedding_vectors)
+                context_chunks , top_score = strategy_executor.execute_strategy(question , strategy , chunks , chunk_map , embeddings)
 
                 if confidence_handler._should_answer(top_score):
                     context = context_builder.build_context(chunk_map , context_chunks)
@@ -121,12 +120,6 @@ Select Repository : """
                 else:
                     answer = confidence_handler.build_low_confidence_message(question)
                     print(answer)
-
-
-            print("target modules : ", target_modules)
-            print("total chunks length : " , len(chunks))
-            print("total filtered chunks length : " , len(filtered_chunks))
-
 
             # for index, result in enumerate(semantic_results, start=1):
             #         print(f"Retrieved File from semantic results {index}: {result['path']}")
@@ -143,7 +136,4 @@ Select Repository : """
             
             
             # memory.update_memory(repo_folder , question , question_type , reranked_results , answer)
-
-
-
 
