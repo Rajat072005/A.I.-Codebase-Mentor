@@ -1,0 +1,1402 @@
+[
+    {
+        "text": "Where is notifications implemented?",
+        "intent": "locate"
+    },
+    {
+        "text": "What does the complete architecture look like?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Explain the mechanism behind dashboard.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Which module handles cache?",
+        "intent": "locate"
+    },
+    {
+        "text": "Help me identify the root cause in session management.",
+        "intent": "debug"
+    },
+    {
+        "text": "Locate middleware related to request handling.",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is profile missing data?",
+        "intent": "debug"
+    },
+    {
+        "text": "Could session management have a race condition?",
+        "intent": "debug"
+    },
+    {
+        "text": "Contrast state management with validation.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is request handling failing?",
+        "intent": "debug"
+    },
+    {
+        "text": "Compare the roles of routing and session management.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Which is better, authorization or session management?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Which collection stores cache?",
+        "intent": "locate"
+    },
+    {
+        "text": "Does cache have a memory leak?",
+        "intent": "debug"
+    },
+    {
+        "text": "Where are shared utilities for profile?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which folder contains session management?",
+        "intent": "locate"
+    },
+    {
+        "text": "Where are constants for authentication defined?",
+        "intent": "locate"
+    },
+    {
+        "text": "How are login and dashboard similar?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Find the root cause of the problem in dashboard.",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain how the architecture supports future development.",
+        "intent": "architecture"
+    },
+    {
+        "text": "How are the responsibilities of signup and dashboard different?",
+        "intent": "comparison"
+    },
+    {
+        "text": "search vs database.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Which startup file loads middleware?",
+        "intent": "locate"
+    },
+    {
+        "text": "How does the internal state change during configuration?",
+        "intent": "implementation"
+    },
+    {
+        "text": "How do the implementations of search and API differ?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Explain database and request handling side by side.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is the middleware for profile registered?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which model represents middleware?",
+        "intent": "locate"
+    },
+    {
+        "text": "How are the responsibilities of dashboard and middleware different?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is signup missing data?",
+        "intent": "debug"
+    },
+    {
+        "text": "Find authentication.",
+        "intent": "locate"
+    },
+    {
+        "text": "Good evening mentor.",
+        "intent": "casual"
+    },
+    {
+        "text": "routing vs request handling.",
+        "intent": "comparison"
+    },
+    {
+        "text": "What should I know about this codebase before reading the code?",
+        "intent": "overview"
+    },
+    {
+        "text": "Compare the architecture of payment and routing.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is payment declared?",
+        "intent": "locate"
+    },
+    {
+        "text": "What type of users is this project designed for?",
+        "intent": "overview"
+    },
+    {
+        "text": "Please guide me.",
+        "intent": "casual"
+    },
+    {
+        "text": "What are the tradeoffs between authentication and payment?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Trace the execution of cache.",
+        "intent": "debug"
+    },
+    {
+        "text": "How are API and validation similar?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Help me reproduce the bug in payment.",
+        "intent": "debug"
+    },
+    {
+        "text": "What components does notifications depend on?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Which folder contains payment?",
+        "intent": "locate"
+    },
+    {
+        "text": "How do payment and orders differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Compare the architecture of signup and cart.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Walk me through the implementation of session management.",
+        "intent": "implementation"
+    },
+    {
+        "text": "How is configuration implemented?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Explain how dashboard works.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Contrast payment with orders.",
+        "intent": "comparison"
+    },
+    {
+        "text": "What does this repository cover?",
+        "intent": "overview"
+    },
+    {
+        "text": "Which file contains configuration?",
+        "intent": "locate"
+    },
+    {
+        "text": "Locate the configuration for notifications.",
+        "intent": "locate"
+    },
+    {
+        "text": "Which utility function supports configuration?",
+        "intent": "locate"
+    },
+    {
+        "text": "database seems broken.",
+        "intent": "debug"
+    },
+    {
+        "text": "Where can I see the middleware configuration for cart?",
+        "intent": "locate"
+    },
+    {
+        "text": "Teach me how request handling works.",
+        "intent": "implementation"
+    },
+    {
+        "text": "How do profile and request handling differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Compare middleware and database.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Compare the architecture of authentication and request handling.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where are the environment variables for validation defined?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which middleware handles dashboard?",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is session management behaving unexpectedly?",
+        "intent": "debug"
+    },
+    {
+        "text": "Where is profile defined?",
+        "intent": "locate"
+    },
+    {
+        "text": "Find the API responsible for session management.",
+        "intent": "locate"
+    },
+    {
+        "text": "Where can I see the middleware configuration for login?",
+        "intent": "locate"
+    },
+    {
+        "text": "Give me the high-level design of cart.",
+        "intent": "architecture"
+    },
+    {
+        "text": "Compare signup and routing.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Tell me about yourself.",
+        "intent": "casual"
+    },
+    {
+        "text": "Why is API throwing an exception?",
+        "intent": "debug"
+    },
+    {
+        "text": "Which file contains constants used by configuration?",
+        "intent": "locate"
+    },
+    {
+        "text": "Help me understand the code behind search.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Trace the execution of notifications.",
+        "intent": "debug"
+    },
+    {
+        "text": "Where should I add logs to debug cart?",
+        "intent": "debug"
+    },
+    {
+        "text": "Find where authentication is first initialized.",
+        "intent": "locate"
+    },
+    {
+        "text": "Evening!",
+        "intent": "casual"
+    },
+    {
+        "text": "session management keeps crashing.",
+        "intent": "debug"
+    },
+    {
+        "text": "Compare the architecture of authentication and database.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Compare the roles of cart and routing.",
+        "intent": "comparison"
+    },
+    {
+        "text": "How can I fix routing?",
+        "intent": "debug"
+    },
+    {
+        "text": "Compare the roles of database and validation.",
+        "intent": "comparison"
+    },
+    {
+        "text": "How does signup work under the hood?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Can you do a deep dive into cart?",
+        "intent": "implementation"
+    },
+    {
+        "text": "How are login and API similar?",
+        "intent": "comparison"
+    },
+    {
+        "text": "How are authorization and cache similar?",
+        "intent": "comparison"
+    },
+    {
+        "text": "What problem does this repository solve?",
+        "intent": "overview"
+    },
+    {
+        "text": "Can you do a deep dive into authorization?",
+        "intent": "implementation"
+    },
+    {
+        "text": "routing gets stuck.",
+        "intent": "debug"
+    },
+    {
+        "text": "Where is the environment setup for database?",
+        "intent": "locate"
+    },
+    {
+        "text": "Help me understand the code behind orders.",
+        "intent": "implementation"
+    },
+    {
+        "text": "How do dashboard and profile differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Trace the execution of configuration.",
+        "intent": "debug"
+    },
+    {
+        "text": "Compare orders and search.",
+        "intent": "comparison"
+    },
+    {
+        "text": "How can I fix authentication?",
+        "intent": "debug"
+    },
+    {
+        "text": "Why is the response incorrect in state management?",
+        "intent": "debug"
+    },
+    {
+        "text": "How do the implementations of middleware and API differ?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is authorization declared?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which utility function supports profile?",
+        "intent": "locate"
+    },
+    {
+        "text": "Where is cache initialized?",
+        "intent": "locate"
+    },
+    {
+        "text": "Why does session management throw an error?",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain this repository like I'm joining the project today.",
+        "intent": "overview"
+    },
+    {
+        "text": "How does middleware handle events internally?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Locate the configuration for middleware.",
+        "intent": "locate"
+    },
+    {
+        "text": "How can I fix middleware?",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain the working principle of signup.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Help me debug payment.",
+        "intent": "debug"
+    },
+    {
+        "text": "How does dashboard handle events internally?",
+        "intent": "implementation"
+    },
+    {
+        "text": "How are requests exchanged between frontend and backend?",
+        "intent": "architecture"
+    },
+    {
+        "text": "What path does a user request follow inside the system?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Locate payment.",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is middleware not working?",
+        "intent": "debug"
+    },
+    {
+        "text": "Which file contains dashboard?",
+        "intent": "locate"
+    },
+    {
+        "text": "Explain the implementation of the configuration module.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Which module handles validation?",
+        "intent": "locate"
+    },
+    {
+        "text": "Nothing happens when I use authorization.",
+        "intent": "debug"
+    },
+    {
+        "text": "search vs cache.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is the configuration for dashboard located?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which controller implements profile?",
+        "intent": "locate"
+    },
+    {
+        "text": "How does payment transform input into output?",
+        "intent": "implementation"
+    },
+    {
+        "text": "When should I use cart instead of session management?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Explain signup and search side by side.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Give me the big-picture architecture.",
+        "intent": "architecture"
+    },
+    {
+        "text": "Which startup file loads configuration?",
+        "intent": "locate"
+    },
+    {
+        "text": "How does data flow through validation?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Which is better, authorization or API?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is the database model for middleware?",
+        "intent": "locate"
+    },
+    {
+        "text": "How does routing interact with other components?",
+        "intent": "architecture"
+    },
+    {
+        "text": "signup vs payment.",
+        "intent": "comparison"
+    },
+    {
+        "text": "How would you describe this project to another developer?",
+        "intent": "overview"
+    },
+    {
+        "text": "What is the purpose of this repository?",
+        "intent": "overview"
+    },
+    {
+        "text": "There is an issue with notifications.",
+        "intent": "debug"
+    },
+    {
+        "text": "What are the tradeoffs between routing and API?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Nothing happens when I use middleware.",
+        "intent": "debug"
+    },
+    {
+        "text": "Why is session management not working?",
+        "intent": "debug"
+    },
+    {
+        "text": "Investigate the issue in dashboard.",
+        "intent": "debug"
+    },
+    {
+        "text": "How do authentication and orders differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Compare the pros and cons of authentication and authorization.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Which class is responsible for search?",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is login not working?",
+        "intent": "debug"
+    },
+    {
+        "text": "Describe the lifecycle of orders during execution.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Contrast database with validation.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Which config manages validation?",
+        "intent": "locate"
+    },
+    {
+        "text": "How does payment interact with other components?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Where is the route for validation defined?",
+        "intent": "locate"
+    },
+    {
+        "text": "What are the tradeoffs between profile and API?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Give me the high-level design of validation.",
+        "intent": "architecture"
+    },
+    {
+        "text": "Help me debug validation.",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain this software at a high level.",
+        "intent": "overview"
+    },
+    {
+        "text": "Can you provide some context about this repository?",
+        "intent": "overview"
+    },
+    {
+        "text": "Explain request handling step by step.",
+        "intent": "implementation"
+    },
+    {
+        "text": "What are the major features of this application?",
+        "intent": "overview"
+    },
+    {
+        "text": "Explain the working principle of cart.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Investigate the issue in database.",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain the working principle of authentication.",
+        "intent": "implementation"
+    },
+    {
+        "text": "How do authorization and middleware differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where can I find the configuration related to validation?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which is better, routing or cache?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Describe the system design behind database.",
+        "intent": "architecture"
+    },
+    {
+        "text": "Which service implements notifications?",
+        "intent": "locate"
+    },
+    {
+        "text": "authentication gets stuck.",
+        "intent": "debug"
+    },
+    {
+        "text": "How is validation connected to the rest of the repository?",
+        "intent": "architecture"
+    },
+    {
+        "text": "How does the architecture reduce coupling?",
+        "intent": "architecture"
+    },
+    {
+        "text": "How are routing and session management similar?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is the service for middleware?",
+        "intent": "locate"
+    },
+    {
+        "text": "Compare the pros and cons of profile and API.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Take me to session management.",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is the API failing in configuration?",
+        "intent": "debug"
+    },
+    {
+        "text": "Give me a quick summary of this software.",
+        "intent": "overview"
+    },
+    {
+        "text": "Can you provide some context about this project?",
+        "intent": "overview"
+    },
+    {
+        "text": "Explain the mechanism behind request handling.",
+        "intent": "implementation"
+    },
+    {
+        "text": "How does login communicate with the rest of the system?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Investigate the issue in authentication.",
+        "intent": "debug"
+    },
+    {
+        "text": "Can this architecture scale easily?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Where are helper functions for notifications?",
+        "intent": "locate"
+    },
+    {
+        "text": "Walk me through the implementation of profile.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Compare the roles of orders and state management.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Explain the flow of profile.",
+        "intent": "architecture"
+    },
+    {
+        "text": "Explain the complete execution of authorization from start to finish.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Contrast authorization with routing.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is the configuration for profile located?",
+        "intent": "locate"
+    },
+    {
+        "text": "search doesn't work anymore.",
+        "intent": "debug"
+    },
+    {
+        "text": "Where can I find the configuration related to dashboard?",
+        "intent": "locate"
+    },
+    {
+        "text": "Locate the schema used by cart.",
+        "intent": "locate"
+    },
+    {
+        "text": "Can you do a deep dive into middleware?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Why does routing throw an error?",
+        "intent": "debug"
+    },
+    {
+        "text": "Why is routing throwing an exception?",
+        "intent": "debug"
+    },
+    {
+        "text": "Compare the architecture of payment and configuration.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Explain the implementation of the middleware module.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Which module handles signup?",
+        "intent": "locate"
+    },
+    {
+        "text": "Walk me through the implementation of cache.",
+        "intent": "implementation"
+    },
+    {
+        "text": "This is really useful",
+        "intent": "casual"
+    },
+    {
+        "text": "Compare authentication and middleware.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is configuration implemented this way?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Compare notifications and middleware.",
+        "intent": "comparison"
+    },
+    {
+        "text": "What are the tradeoffs between API and cache?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Compare the roles of profile and request handling.",
+        "intent": "comparison"
+    },
+    {
+        "text": "How does data flow through database?",
+        "intent": "architecture"
+    },
+    {
+        "text": "What are the tradeoffs between authorization and request handling?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is cache implemented?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which module handles notifications?",
+        "intent": "locate"
+    },
+    {
+        "text": "Compare the architecture of signup and middleware.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Nothing happens when I use authentication.",
+        "intent": "debug"
+    },
+    {
+        "text": "Help me reproduce the bug in login.",
+        "intent": "debug"
+    },
+    {
+        "text": "Find configuration constants for configuration.",
+        "intent": "locate"
+    },
+    {
+        "text": "Find the middleware responsible for authentication.",
+        "intent": "locate"
+    },
+    {
+        "text": "Where is the controller for search?",
+        "intent": "locate"
+    },
+    {
+        "text": "Find helper code used by API.",
+        "intent": "locate"
+    },
+    {
+        "text": "How is authorization connected to the rest of the repository?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Nothing happens when I use state management.",
+        "intent": "debug"
+    },
+    {
+        "text": "Locate the controller responsible for signup.",
+        "intent": "locate"
+    },
+    {
+        "text": "Which function handles search?",
+        "intent": "locate"
+    },
+    {
+        "text": "How is orders connected to the rest of the repository?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Why is cache not working?",
+        "intent": "debug"
+    },
+    {
+        "text": "Summarize this project for a technical lead.",
+        "intent": "overview"
+    },
+    {
+        "text": "Diagnose the problem with login.",
+        "intent": "debug"
+    },
+    {
+        "text": "How do search and database differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where is the route for state management defined?",
+        "intent": "locate"
+    },
+    {
+        "text": "Explain the complete execution of validation from start to finish.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Which config manages state management?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which environment variable controls signup?",
+        "intent": "locate"
+    },
+    {
+        "text": "What is the sequence of operations inside profile?",
+        "intent": "implementation"
+    },
+    {
+        "text": "cache seems broken.",
+        "intent": "debug"
+    },
+    {
+        "text": "Why is the response incorrect in authentication?",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain the flow of orders.",
+        "intent": "architecture"
+    },
+    {
+        "text": "Which route is responsible for routing?",
+        "intent": "locate"
+    },
+    {
+        "text": "Help me investigate the state changes in search.",
+        "intent": "debug"
+    },
+    {
+        "text": "How are the responsibilities of signup and profile different?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is payment behaving unexpectedly?",
+        "intent": "debug"
+    },
+    {
+        "text": "Where is the controller for request handling?",
+        "intent": "locate"
+    },
+    {
+        "text": "routing keeps timing out.",
+        "intent": "debug"
+    },
+    {
+        "text": "What is the best starting point for understanding this project?",
+        "intent": "overview"
+    },
+    {
+        "text": "Compare the architecture of authorization and state management.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Explain this repository.",
+        "intent": "overview"
+    },
+    {
+        "text": "authentication returns incorrect results.",
+        "intent": "debug"
+    },
+    {
+        "text": "signup vs cart.",
+        "intent": "comparison"
+    },
+    {
+        "text": "What components does search depend on?",
+        "intent": "architecture"
+    },
+    {
+        "text": "How is signup connected to the rest of the repository?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Why is validation failing?",
+        "intent": "debug"
+    },
+    {
+        "text": "What happens after request handling receives a request?",
+        "intent": "implementation"
+    },
+    {
+        "text": "How can I fix configuration?",
+        "intent": "debug"
+    },
+    {
+        "text": "Where is orders defined?",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is login implemented this way?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Explain validation step by step.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Why is authorization missing data?",
+        "intent": "debug"
+    },
+    {
+        "text": "Help me debug cart.",
+        "intent": "debug"
+    },
+    {
+        "text": "Where is the configuration for authorization located?",
+        "intent": "locate"
+    },
+    {
+        "text": "How do the implementations of configuration and request handling differ?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Help me reproduce the bug in validation.",
+        "intent": "debug"
+    },
+    {
+        "text": "How tightly coupled are the modules?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Which controller implements authorization?",
+        "intent": "locate"
+    },
+    {
+        "text": "Contrast orders with middleware.",
+        "intent": "comparison"
+    },
+    {
+        "text": "What happens after authentication receives a request?",
+        "intent": "implementation"
+    },
+    {
+        "text": "What happens behind the scenes when database runs?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Compare the roles of signup and validation.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Explain the implementation of the cart module.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Explain the complete execution of profile from start to finish.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Explain the working principle of payment.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Nothing happens when I use configuration.",
+        "intent": "debug"
+    },
+    {
+        "text": "What is the sequence of operations inside authorization?",
+        "intent": "implementation"
+    },
+    {
+        "text": "orders suddenly stopped working.",
+        "intent": "debug"
+    },
+    {
+        "text": "Trace the execution of routing.",
+        "intent": "debug"
+    },
+    {
+        "text": "authentication doesn't work anymore.",
+        "intent": "debug"
+    },
+    {
+        "text": "How are the responsibilities of signup and routing different?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is request handling returning null?",
+        "intent": "debug"
+    },
+    {
+        "text": "What happens behind the scenes when middleware runs?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Which service manages session management?",
+        "intent": "locate"
+    },
+    {
+        "text": "Summarize this software.",
+        "intent": "overview"
+    },
+    {
+        "text": "What problem does this codebase solve?",
+        "intent": "overview"
+    },
+    {
+        "text": "How do routing and database differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why does the request fail in cart?",
+        "intent": "debug"
+    },
+    {
+        "text": "signup vs notifications.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Does signup have a memory leak?",
+        "intent": "debug"
+    },
+    {
+        "text": "How does the application start and initialize?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Why is validation failing in middleware?",
+        "intent": "debug"
+    },
+    {
+        "text": "Help me understand the code behind profile.",
+        "intent": "implementation"
+    },
+    {
+        "text": "How are authentication and dashboard similar?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Contrast login with search.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Explain the implementation of the request handling module.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Explain middleware and session management side by side.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Where can I see the middleware configuration for validation?",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is profile not working?",
+        "intent": "debug"
+    },
+    {
+        "text": "How does the internal state change during profile?",
+        "intent": "implementation"
+    },
+    {
+        "text": "How does signup transform input into output?",
+        "intent": "implementation"
+    },
+    {
+        "text": "What is the first thing a developer should understand here?",
+        "intent": "overview"
+    },
+    {
+        "text": "payment always fails.",
+        "intent": "debug"
+    },
+    {
+        "text": "Find the controller managing profile.",
+        "intent": "locate"
+    },
+    {
+        "text": "Contrast profile with request handling.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is API failing?",
+        "intent": "debug"
+    },
+    {
+        "text": "cart vs search.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Which file contains constants used by authorization?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which folder contains authentication?",
+        "intent": "locate"
+    },
+    {
+        "text": "How easy is it to extend this architecture?",
+        "intent": "architecture"
+    },
+    {
+        "text": "How do cart and API differ in terms of performance?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Before I explore the code, explain this software.",
+        "intent": "overview"
+    },
+    {
+        "text": "Why is the API failing in login?",
+        "intent": "debug"
+    },
+    {
+        "text": "How does API handle events internally?",
+        "intent": "implementation"
+    },
+    {
+        "text": "How can I fix database?",
+        "intent": "debug"
+    },
+    {
+        "text": "Find the root cause of the problem in session management.",
+        "intent": "debug"
+    },
+    {
+        "text": "Compare the roles of authentication and routing.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is signup returning null?",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain authentication and routing side by side.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Which is better, configuration or validation?",
+        "intent": "comparison"
+    },
+    {
+        "text": "validation seems broken.",
+        "intent": "debug"
+    },
+    {
+        "text": "How does the architecture handle scaling?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Help me debug search.",
+        "intent": "debug"
+    },
+    {
+        "text": "Compare the roles of cart and notifications.",
+        "intent": "comparison"
+    },
+    {
+        "text": "middleware returns incorrect results.",
+        "intent": "debug"
+    },
+    {
+        "text": "request handling suddenly stopped working.",
+        "intent": "debug"
+    },
+    {
+        "text": "Where are helper functions for orders?",
+        "intent": "locate"
+    },
+    {
+        "text": "Explain the internal logic of login.",
+        "intent": "implementation"
+    },
+    {
+        "text": "When should I use profile instead of configuration?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Can you provide some context about this platform?",
+        "intent": "overview"
+    },
+    {
+        "text": "Give me the high-level design of session management.",
+        "intent": "architecture"
+    },
+    {
+        "text": "Compare the architecture of login and profile.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Give me a quick summary of this repository.",
+        "intent": "overview"
+    },
+    {
+        "text": "Why is validation failing in profile?",
+        "intent": "debug"
+    },
+    {
+        "text": "Explain how signup works.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Where are shared utilities for signup?",
+        "intent": "locate"
+    },
+    {
+        "text": "Why is the API failing in authorization?",
+        "intent": "debug"
+    },
+    {
+        "text": "Which startup file loads notifications?",
+        "intent": "locate"
+    },
+    {
+        "text": "Which environment variable controls database?",
+        "intent": "locate"
+    },
+    {
+        "text": "How does the internal state change during middleware?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Describe the lifecycle of API during execution.",
+        "intent": "implementation"
+    },
+    {
+        "text": "Describe the data flow of this system.",
+        "intent": "architecture"
+    },
+    {
+        "text": "cache suddenly stopped working.",
+        "intent": "debug"
+    },
+    {
+        "text": "Find the service responsible for signup.",
+        "intent": "locate"
+    },
+    {
+        "text": "Compare the architecture of login and search.",
+        "intent": "comparison"
+    },
+    {
+        "text": "What is the sequence of operations inside cache?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Which controller handles cache?",
+        "intent": "locate"
+    },
+    {
+        "text": "search returns incorrect results.",
+        "intent": "debug"
+    },
+    {
+        "text": "login suddenly stopped working.",
+        "intent": "debug"
+    },
+    {
+        "text": "How are the responsibilities of routing and API different?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Contrast cart with dashboard.",
+        "intent": "comparison"
+    },
+    {
+        "text": "When should I use search instead of cache?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Locate the configuration for payment.",
+        "intent": "locate"
+    },
+    {
+        "text": "Explain dashboard step by step.",
+        "intent": "implementation"
+    },
+    {
+        "text": "How are the responsibilities of signup and session management different?",
+        "intent": "comparison"
+    },
+    {
+        "text": "Find the controller managing payment.",
+        "intent": "locate"
+    },
+    {
+        "text": "What components does signup depend on?",
+        "intent": "architecture"
+    },
+    {
+        "text": "How does middleware work under the hood?",
+        "intent": "implementation"
+    },
+    {
+        "text": "Contrast orders with dashboard.",
+        "intent": "comparison"
+    },
+    {
+        "text": "How is authentication connected to the rest of the repository?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Compare the architecture of authentication and configuration.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Why is validation returning null?",
+        "intent": "debug"
+    },
+    {
+        "text": "Does routing have a memory leak?",
+        "intent": "debug"
+    },
+    {
+        "text": "Why is authorization producing incorrect data?",
+        "intent": "debug"
+    },
+    {
+        "text": "How does data flow through configuration?",
+        "intent": "architecture"
+    },
+    {
+        "text": "Explain authorization and cache side by side.",
+        "intent": "comparison"
+    },
+    {
+        "text": "Compare the roles of authentication and database.",
+        "intent": "comparison"
+    },
+    {
+        "text": "How does authorization work under the hood?",
+        "intent": "implementation"
+    }
+]
