@@ -222,12 +222,12 @@ INTENT_BLUEPRINT = {
         {"pattern": "How does this application work at a high level?"},
         {"pattern": "Can you explain the overall workflow of this project?"},
         {"pattern": "What happens from start to finish when using this application?"},
-        # Family 15 — Repository Identity
+        # Family 15 — Repository Idfeature
         {
             "pattern": "If you had to introduce this repository to someone, what would you say?"
         },
         {"pattern": "How would you describe this project to another developer?"},
-        {"pattern": "What is the identity of this repository?"},
+        {"pattern": "What is the idfeature of this repository?"},
         # Family 16 — Project Domain
         {"pattern": "What domain does this application belong to?"},
         {"pattern": "What category of software is this project?"},
@@ -312,7 +312,6 @@ INTENT_BLUEPRINT = {
                 "How is an incoming request processed?",
                 "Explain the request handling pipeline.",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "data_flow",
@@ -323,7 +322,6 @@ INTENT_BLUEPRINT = {
                 "Explain the movement of data inside the project.",
                 "How does data travel through the architecture?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "layered_design",
@@ -334,7 +332,6 @@ INTENT_BLUEPRINT = {
                 "Explain the architectural layers of this project.",
                 "What layers exist in this application?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "component_responsibilities",
@@ -345,7 +342,6 @@ INTENT_BLUEPRINT = {
                 "Explain how different modules divide their work.",
                 "How are architectural responsibilities assigned?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "frontend_backend_communication",
@@ -356,7 +352,6 @@ INTENT_BLUEPRINT = {
                 "Describe the interaction between the UI and the server.",
                 "How is client-server communication organized?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "design_decisions",
@@ -367,7 +362,6 @@ INTENT_BLUEPRINT = {
                 "Explain the reasoning behind the architecture.",
                 "Why was this architecture chosen?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "module_boundaries",
@@ -378,7 +372,6 @@ INTENT_BLUEPRINT = {
                 "Explain subsystem boundaries.",
                 "How are architectural boundaries maintained?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "coupling",
@@ -389,7 +382,6 @@ INTENT_BLUEPRINT = {
                 "How dependent are modules on each other?",
                 "How does the architecture reduce coupling?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "scalability",
@@ -400,7 +392,6 @@ INTENT_BLUEPRINT = {
                 "How does the architecture handle scaling?",
                 "Explain scalability from an architectural perspective.",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "extensibility",
@@ -411,7 +402,6 @@ INTENT_BLUEPRINT = {
                 "How extensible is the repository structure?",
                 "Explain how the architecture supports future development.",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "system_organization",
@@ -422,7 +412,6 @@ INTENT_BLUEPRINT = {
                 "Explain the organizational structure of the application.",
                 "How is the project structured internally?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "architectural_pattern",
@@ -433,7 +422,6 @@ INTENT_BLUEPRINT = {
                 "Does this repository follow a layered or modular architecture?",
                 "Explain the architectural pattern used.",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "application_lifecycle",
@@ -444,7 +432,6 @@ INTENT_BLUEPRINT = {
                 "Explain the initialization process.",
                 "How is the application lifecycle organized?",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "dependency_direction",
@@ -455,7 +442,6 @@ INTENT_BLUEPRINT = {
                 "How are dependencies organized?",
                 "Describe the dependency hierarchy.",
             ],
-            "variables": {"feature": FEATURES},
         },
         {
             "category": "big_picture_architecture",
@@ -466,7 +452,22 @@ INTENT_BLUEPRINT = {
                 "Summarize the architectural design.",
                 "What does the complete architecture look like?",
             ],
+        },
+        {
+            "pattern": [
+                "How does {feature} fit into the overall system?",
+                "How does {feature} interact with other components?",
+                "How does {feature} connect to the rest of the application?",
+                "What role does {feature} play in the overall architecture?",
+                "How does data flow through {feature} across the system?",
+                "How is {feature} connected to other parts of the application?",
+                "What dependencies does {feature} have within the system?",
+                "How does {feature} participate in the overall request flow?",
+                "Where does {feature} fit within the system design?",
+                "How does {feature} communicate with other components?",
+            ],
             "variables": {"feature": FEATURES},
+            "category": "high_level_design",
         },
     ],
     # ==========================
@@ -596,6 +597,22 @@ INTENT_BLUEPRINT = {
         {
             "category": "end_to_end",
             "pattern": "Explain the complete execution of {feature} from start to finish.",
+            "variables": {"feature": FEATURES},
+        },
+        {
+            "category": "end_to_end",
+            "pattern": [
+                "How does {feature} work internally?",
+                "What happens internally when {feature} runs?",
+                "How does {feature} process data internally?",
+                "What steps does {feature} perform internally?",
+                "How is the logic of {feature} executed?",
+                "What happens behind the scenes inside {feature}?",
+                "How does {feature} handle its internal operations?",
+                "How is {feature} implemented internally?",
+                "What is the internal workflow of {feature}?",
+                "How does {feature} transform its input internally?",
+            ],
             "variables": {"feature": FEATURES},
         },
     ],
@@ -788,6 +805,22 @@ INTENT_BLUEPRINT = {
             ],
             "variables": {"feature": FEATURES},
         },
+        {
+            "category": "startup_files",
+            "pattern": [
+                "Where is {feature} implemented?",
+                "Which file contains the implementation of {feature}?",
+                "Which module contains {feature}?",
+                "Where can I find the code for {feature}?",
+                "Which function handles {feature}?",
+                "Which service implements {feature}?",
+                "Where is the controller for {feature}?",
+                "Which file is responsible for {feature}?",
+                "Point me to the code for {feature}.",
+                "Where can I find the implementation of {feature}?",
+            ],
+            "variables": {"feature": FEATURES},
+        },
     ],
     # ==========================
     # COMPARISON
@@ -880,6 +913,21 @@ INTENT_BLUEPRINT = {
         {
             "category": "architecture",
             "pattern": "Compare the architecture of {feature1} and {feature2}.",
+            "variables": {"feature1": FEATURES, "feature2": FEATURES},
+            "symmetric": True,
+        },
+        {
+            "category": "architecture",
+            "pattern": [
+                "How does {feature1} differ from {feature2}?",
+                "What are the differences between {feature1} and {feature2}?",
+                "How do {feature1} and {feature2} compare?",
+                "Which responsibilities belong to {feature1} versus {feature2}?",
+                "What is different about {feature1} and {feature2}?",
+                "How are {feature1} and {feature2} different in the system?",
+                "Compare the roles of {feature1} and {feature2}.",
+                "How do the responsibilities of {feature1} and {feature2} differ?",
+            ],
             "variables": {"feature1": FEATURES, "feature2": FEATURES},
             "symmetric": True,
         },
@@ -1132,8 +1180,8 @@ INTENT_BLUEPRINT = {
         {"category": "thanks", "pattern": "Thank you"},
         ##Family 6 — Appreciation
         {"category": "appreciation", "pattern": "That was helpful."},
-        ##Family 7 — Identity
-        {"category": "identity", "pattern": "Who are you?"},
+        ##Family 7 — Idfeature
+        {"category": "idfeature", "pattern": "Who are you?"},
         ##Family 8 — Capability
         {"category": "capability", "pattern": "What can you do?"},
         ##Family 9 — Help
@@ -1239,7 +1287,7 @@ INTENT_BLUEPRINT = {
             ],
         },
         {
-            "category": "identity",
+            "category": "idfeature",
             "pattern": [
                 "Who are you?",
                 "Tell me about yourself.",
@@ -1336,6 +1384,38 @@ INTENT_BLUEPRINT = {
                 "Let's chat.",
                 "Let's talk.",
                 "Say something fun.",
+            ],
+        },
+        {
+            "category": "random_chat",
+            "pattern": [
+                "This is really helpful.",
+                "This is really useful.",
+                "That was helpful.",
+                "That is useful.",
+                "This helped me a lot.",
+                "I understand now.",
+                "Got it.",
+                "I get it now.",
+                "That makes things clearer.",
+                "That cleared up my confusion.",
+                "This is exactly what I needed.",
+                "That's great.",
+                "Awesome work.",
+                "Perfect.",
+                "Great, thanks.",
+                "Thank you, that helped.",
+                "I appreciate the help.",
+                "Nice explanation.",
+                "That was a good explanation.",
+                "This makes much more sense now.",
+                "I'm excited to continue.",
+                "Let's keep going.",
+                "I'm ready for the next step.",
+                "Okay, let's continue.",
+                "Yes, let's move forward.",
+                "Alright, what's next?",
+                "Cool, let's do it.",
             ],
         },
     ],
