@@ -41,7 +41,7 @@ BUSINESS_FEATURES = [
     "cart",
     "dashboard",
     "profile",
-    "notifications",
+    "notification",
     "search",
 ]
 
@@ -259,7 +259,7 @@ INTENT_BLUEPRINT = {
             "category": "overall_architecture",
         },
         {
-            "pattern": "How does {feature} interact with other components?",
+            "pattern": "How does {feature} interact with other features?",
             "variables": {"feature": FEATURES},
             "category": "interaction",
         },
@@ -274,7 +274,7 @@ INTENT_BLUEPRINT = {
             "category": "communication",
         },
         {
-            "pattern": "What components does {feature} depend on?",
+            "pattern": "What features does {feature} depend on?",
             "variables": {"feature": FEATURES},
             "category": "dependency",
         },
@@ -334,10 +334,10 @@ INTENT_BLUEPRINT = {
             ],
         },
         {
-            "category": "component_responsibilities",
+            "category": "feature_responsibilities",
             "pattern": [
-                "How are responsibilities distributed across components?",
-                "Which components own which responsibilities?",
+                "How are responsibilities distributed across features?",
+                "Which features own which responsibilities?",
                 "How is responsibility separation achieved?",
                 "Explain how different modules divide their work.",
                 "How are architectural responsibilities assigned?",
@@ -377,7 +377,7 @@ INTENT_BLUEPRINT = {
             "category": "coupling",
             "pattern": [
                 "How tightly coupled are the modules?",
-                "How independent are the system components?",
+                "How independent are the system features?",
                 "Describe coupling in this architecture.",
                 "How dependent are modules on each other?",
                 "How does the architecture reduce coupling?",
@@ -408,7 +408,7 @@ INTENT_BLUEPRINT = {
             "pattern": [
                 "How is the system organized internally?",
                 "Describe the overall organization of the repository.",
-                "How are architectural components arranged?",
+                "How are architectural features arranged?",
                 "Explain the organizational structure of the application.",
                 "How is the project structured internally?",
             ],
@@ -456,7 +456,7 @@ INTENT_BLUEPRINT = {
         {
             "pattern": [
                 "How does {feature} fit into the overall system?",
-                "How does {feature} interact with other components?",
+                "How does {feature} interact with other features?",
                 "How does {feature} connect to the rest of the application?",
                 "What role does {feature} play in the overall architecture?",
                 "How does data flow through {feature} across the system?",
@@ -464,7 +464,37 @@ INTENT_BLUEPRINT = {
                 "What dependencies does {feature} have within the system?",
                 "How does {feature} participate in the overall request flow?",
                 "Where does {feature} fit within the system design?",
-                "How does {feature} communicate with other components?",
+                "How does {feature} communicate with other features?",
+            ],
+            "variables": {"feature": FEATURES},
+            "category": "high_level_design",
+        },
+        {
+            "pattern": [
+                # Data flow across the system
+                "How does data flow across {feature} and the rest of the system?",
+                "How does information move between {feature} and other features?",
+                "Describe how {feature} participates in the system's data flow.",
+                "How does data travel through the architecture involving {feature}?",
+                "What is the system-level data flow around {feature}?",
+                # Design decisions
+                "What design decisions shape the architecture of {feature}?",
+                "Why was {feature} designed this way within the system?",
+                "What architectural choices influence {feature}?",
+                "What design principles define how {feature} fits into the application?",
+                "How do the design decisions around {feature} affect the overall system?",
+                # Responsibility separation
+                "How are responsibilities separated around {feature}?",
+                "What responsibilities belong to {feature} compared with other parts of the system?",
+                "How does {feature} contribute to the separation of concerns?",
+                "How are responsibilities distributed between {feature} and other modules?",
+                "What architectural responsibility does {feature} have?",
+                # feature roles
+                "What role does {feature} serve in the system architecture?",
+                "Why does {feature} exist as a separate part of the application?",
+                "How does {feature} fit into the application's architectural design?",
+                "What place does {feature} have in the overall system structure?",
+                "How is the role of {feature} defined within the architecture?",
             ],
             "variables": {"feature": FEATURES},
             "category": "high_level_design",
@@ -651,8 +681,8 @@ INTENT_BLUEPRINT = {
             "variables": {"feature": FEATURES},
         },
         {
-            "category": "component",
-            "pattern": "Which component is responsible for {feature}?",
+            "category": "feature",
+            "pattern": "Which feature is responsible for {feature}?",
             "variables": {"feature": FEATURES},
         },
         {
@@ -818,6 +848,30 @@ INTENT_BLUEPRINT = {
                 "Which file is responsible for {feature}?",
                 "Point me to the code for {feature}.",
                 "Where can I find the implementation of {feature}?",
+            ],
+            "variables": {"feature": FEATURES},
+        },
+        {
+            "category": "startup_files",
+            "pattern": [
+                # Locate code even when the target contains "implementation"
+                "Point me to the implementation of {feature}.",
+                "Where can I find the implementation of {feature}?",
+                "Locate the implementation code for {feature}.",
+                "Show me where {feature} is implemented.",
+                "Which file contains the implementation of {feature}?",
+                # Locate internal logic
+                "Where can I find the internal logic of {feature}?",
+                "Point me to the code behind {feature}.",
+                "Locate the logic responsible for {feature}.",
+                "Which file contains the logic for {feature}?",
+                "Show me where the internal code for {feature} is located.",
+                # Locate architecture/design-related code
+                "Where is the architecture for {feature} defined?",
+                "Point me to the code that defines the architecture of {feature}.",
+                "Which file defines the structure of {feature}?",
+                "Where can I locate the design-related code for {feature}?",
+                "Show me where the system structure for {feature} is defined.",
             ],
             "variables": {"feature": FEATURES},
         },

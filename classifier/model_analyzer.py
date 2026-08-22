@@ -49,13 +49,14 @@ def predict(texts , embedding_model , classifer):
     )
 
     predictions = classifer.predict(embeddings)
+    probabilities = classifer.predict_proba(embeddings)
 
-    return predictions
+    return predictions,probabilities
 
 def decode_labels(predictions , label_encoder):
     return label_encoder.inverse_transform(predictions)
 
-def show_errors(texts ,actual_labels , predicted_labels):
+def show_errors(texts ,actual_labels , predicted_labels , probabilities , classifier,label_encoder):
 
 
     print("\n" + "=" * 60)
@@ -64,12 +65,22 @@ def show_errors(texts ,actual_labels , predicted_labels):
 
     error_count = 0
 
-    for text , actual , predicted in zip(texts , actual_labels , predicted_labels):
+    for text , actual , predicted , probability_row in zip(texts , actual_labels , predicted_labels , probabilities):
         if actual != predicted:
             error_count += 1
             print(f"\nQuestion : {text}")
             print(f"Actual   : {actual}")
             print(f"Predicted: {predicted}")
+
+            print("\nTop 3 Predictions:")
+
+            top_indices = probability_row.argsort()[-3:][::-1]
+
+            for index in top_indices:
+                encoded_class = classifier.classes_[index]
+                intent = label_encoder.inverse_transform([encoded_class])[0]
+                confidence = probability_row[index]
+                print(f"{intent:15} → {confidence:.4f}")
 
     print(f"\nTotal Errors: {error_count}")
 
@@ -109,7 +120,7 @@ def main():
         label_encoder
     )
 
-    predicted_encoded = predict(
+    predicted_encoded , probabilities = predict(
         texts,
         embedding_model,
         classifier
@@ -140,7 +151,10 @@ def main():
     show_errors(
         texts,
         actual_labels,
-        predicted_labels
+        predicted_labels,
+        probabilities,
+        classifier,
+        label_encoder
     )
 
     show_confusion_matrix(

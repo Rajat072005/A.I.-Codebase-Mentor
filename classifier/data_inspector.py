@@ -27,7 +27,7 @@ def get_examples(dataset , intents):
             )
     return examples
 
-def print_examples(examples , limit = 30):
+def print_examples(examples , limit = 50):
     for intent , questions in examples.items():
         print("\n" + "=" * 60)
         print(intent.upper())
