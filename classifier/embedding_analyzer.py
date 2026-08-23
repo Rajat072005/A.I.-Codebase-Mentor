@@ -29,10 +29,10 @@ train_intents = [item["intent"] for item in train_data]
 
 train_embeddings = embedding_model.encode(train_texts, show_progress_bar=True)
 
-print("Training Examples:", len(train_texts))
-print("Training Intents:", len(train_intents))
-print("Training Embeddings:", len(train_embeddings))
-print("Embedding Shape:", train_embeddings.shape)
+# print("Training Examples:", len(train_texts))
+# print("Training Intents:", len(train_intents))
+# print("Training Embeddings:", len(train_embeddings))
+# print("Embedding Shape:", train_embeddings.shape)
 
 
 def find_similar_examples(
@@ -58,6 +58,21 @@ def find_similar_examples(
 
     return results
 
+def analyze_neighbourhood(question , embedding_model , train_embeddings , train_intents , top_k):
+    question_embedding = embedding_model.encode([question])
+
+    similarities = cosine_similarity(question_embedding , train_embeddings)[0]
+
+    top_indices = similarities.argsort()[-top_k:][::-1]
+
+    intent_counts = {}
+
+    for index in top_indices:
+        intent = train_intents[index]
+        intent_counts[intent] = intent_counts.get(intent , 0) + 1
+    return intent_counts
+
+neighborhood_sizes = [5, 10, 20, 50]
 
 error_questions = [
     "What should contributors understand first?",
@@ -67,14 +82,36 @@ error_questions = [
 ]
 
 for question in error_questions:
-    similar_examples = find_similar_examples(
-        question, embedding_model, train_embeddings, train_texts, train_intents
-    )
+    # similar_examples = find_similar_examples(
+    #     question, embedding_model, train_embeddings, train_texts, train_intents
+    # )
 
-    print(f"\nQuestion: {question}")
-    print("\nNearest Training Examples:\n")
+    # print(f"\nQuestion: {question}")
+    # print("\nNearest Training Examples:\n")
 
-    for example in similar_examples:
-        print(f"Similarity: {example['similarity']:.4f} | Intent: {example['intent']}")
+    # for example in similar_examples:
+    #     print(f"Similarity: {example['similarity']:.4f} | Intent: {example['intent']}")
 
-        print(f"Text: {example['text']}\n")
+    #     print(f"Text: {example['text']}\n")
+
+    print("\n" + "=" * 60)
+    print(f"Question: {question}")
+    print("=" * 60)
+
+    for top_k in neighborhood_sizes:
+        intent_counts = analyze_neighbourhood(question,
+                                              embedding_model , train_embeddings,
+                                              train_intents,
+                                              top_k=top_k)
+
+        print(f"\nTop {top_k} Neighbours : ")
+
+        sorted_counts = sorted(intent_counts.items(),
+                               key=lambda item: item[1],
+                               reverse = True)
+
+        for intent , count in sorted_counts:
+            print(f"{intent:15} → {count}")
+
+
+

@@ -1396,7 +1396,7 @@ INTENT_BLUEPRINT = {
                 "You're doing great",
                 "You're helping a lot",
                 "This project is exciting",
-                "This is really useful",
+                "This is really useful.",
                 "I'm learning a lot",
             ],
         },
