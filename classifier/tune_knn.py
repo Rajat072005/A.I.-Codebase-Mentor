@@ -1,0 +1,88 @@
+import json
+from pathlib import Path
+
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics import accuracy_score
+from sklearn.neighbors import KNeighborsClassifier
+
+BASE_DIR = Path(__file__).resolve().parent
+
+DATASET_DIR = BASE_DIR / "datasets" / "processed"
+
+EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+
+
+def load_dataset(filename):
+
+    filepath = DATASET_DIR / filename
+
+    with open(filepath, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def prepare_data(dataset):
+
+    texts = [example["text"] for example in dataset]
+    labels = [example["intent"] for example in dataset]
+
+    return texts, labels
+
+
+def main():
+
+    train_data = load_dataset("train.json")
+    validation_data = load_dataset("validation.json")
+
+    train_texts, train_labels = prepare_data(train_data)
+    validation_texts, validation_labels = prepare_data(validation_data)
+
+    embedding_model = SentenceTransformer(EMBEDDING_MODEL)
+
+    print("Creating training embeddings...")
+
+    train_embeddings = embedding_model.encode(
+        train_texts,
+        show_progress_bar=True
+    )
+
+    print("\nCreating validation embeddings...")
+
+    validation_embeddings = embedding_model.encode(
+        validation_texts,
+        show_progress_bar=True
+    )
+
+    k_values = [1, 3, 5, 7, 9, 11, 15]
+
+    print("\n" + "=" * 60)
+    print("KNN HYPERPARAMETER TUNING")
+    print("=" * 60)
+
+    for k in k_values:
+
+        knn_classifier = KNeighborsClassifier(
+            n_neighbors=k,
+            metric="cosine"
+        )
+
+        knn_classifier.fit(
+            train_embeddings,
+            train_labels
+        )
+
+        predictions = knn_classifier.predict(
+            validation_embeddings
+        )
+
+        accuracy = accuracy_score(
+            validation_labels,
+            predictions
+        )
+
+        print(
+            f"k = {k:<2} → Validation Accuracy: {accuracy:.4f}"
+        )
+
+
+if __name__ == "__main__":
+    main()
