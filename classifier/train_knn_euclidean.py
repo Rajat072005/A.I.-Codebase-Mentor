@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 import joblib
-import numpy as np
+import numpy as np  # noqa: F401
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.neighbors import KNeighborsClassifier
