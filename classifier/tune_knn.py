@@ -40,48 +40,110 @@ def main():
 
     print("Creating training embeddings...")
 
-    train_embeddings = embedding_model.encode(
-        train_texts,
-        show_progress_bar=True
-    )
+    train_embeddings = embedding_model.encode(train_texts, show_progress_bar=True)
 
     print("\nCreating validation embeddings...")
 
     validation_embeddings = embedding_model.encode(
-        validation_texts,
-        show_progress_bar=True
+        validation_texts, show_progress_bar=True
     )
 
-    k_values = [1, 3, 5, 7, 9, 11, 15]
+    # k_values = [1, 3, 5, 7, 9, 11, 15]
 
     print("\n" + "=" * 60)
     print("KNN HYPERPARAMETER TUNING")
     print("=" * 60)
 
-    for k in k_values:
+    # for k in k_values:
 
-        knn_classifier = KNeighborsClassifier(
-            n_neighbors=k,
-            metric="cosine"
-        )
+    #     knn_classifier = KNeighborsClassifier(
+    #         n_neighbors=k,
+    #         metric="cosine"
+    #     )
 
-        knn_classifier.fit(
-            train_embeddings,
-            train_labels
-        )
+    #     knn_classifier.fit(
+    #         train_embeddings,
+    #         train_labels
+    #     )
 
-        predictions = knn_classifier.predict(
-            validation_embeddings
-        )
+    #     predictions = knn_classifier.predict(
+    #         validation_embeddings
+    #     )
 
-        accuracy = accuracy_score(
-            validation_labels,
-            predictions
-        )
+    #     accuracy = accuracy_score(
+    #         validation_labels,
+    #         predictions
+    #     )
 
-        print(
-            f"k = {k:<2} → Validation Accuracy: {accuracy:.4f}"
-        )
+    #     print(
+    #         f"k = {k:<2} → Validation Accuracy: {accuracy:.4f}"
+    #     )
+
+    print("\n" + "=" * 60)
+    print("KNN WEIGHT TUNING")
+    print("=" * 60)
+
+    # for weight in ["uniform", "distance"]:
+    #     knn_classifier = KNeighborsClassifier(
+    #         n_neighbors=3, metric="cosine", weights=weight
+    #     )
+
+    #     knn_classifier.fit(train_embeddings, train_labels)
+
+    #     predictions = knn_classifier.predict(validation_embeddings)
+
+    #     accuracy = accuracy_score(validation_labels, predictions)
+
+    #     print(f"weights = {weight:<8} → Validation Accuracy: {accuracy:.4f}")
+
+    uniform_classifier = KNeighborsClassifier(
+        n_neighbors=3, metric="cosine", weights="uniform"
+    )
+
+
+    distance_classifier = KNeighborsClassifier(
+        n_neighbors=3, metric="cosine", weights="distance"
+    )   
+
+
+    uniform_classifier.fit(train_embeddings, train_labels)
+
+    distance_classifier.fit(train_embeddings, train_labels)
+
+
+    uniform_predictions = uniform_classifier.predict(validation_embeddings)
+
+    distance_predictions = distance_classifier.predict(validation_embeddings)
+
+
+    different_predictions = 0
+
+
+    for text , actual ,uniform_prediction, distance_prediction in zip(
+        validation_texts , validation_labels ,uniform_predictions, distance_predictions
+    ):
+        if uniform_prediction != distance_prediction:
+                different_predictions += 1
+                print(f"\nQuestion: {text}")
+                print(f"Actual:   {actual}")
+                print(f"Uniform:  {uniform_prediction}")
+                print(f"Distance: {distance_prediction}")
+
+                if uniform_prediction == actual:
+                    print("Winner: Uniform")
+
+                elif distance_prediction == actual:
+                    print("Winner: Distance")
+
+                else:
+                    print("Winner: Neither")
+
+
+    print("\n" + "=" * 60)
+    print("UNIFORM VS DISTANCE PREDICTION COMPARISON")
+    print("=" * 60)
+
+    print(f"\nDifferent Predictions: {different_predictions}")
 
 
 if __name__ == "__main__":
